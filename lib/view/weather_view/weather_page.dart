@@ -6,11 +6,39 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 0.5,
-          child: WeatherForecast(),
+          child: Column(
+            children: [
+              const Spacer(),
+              const WeatherForecast(),
+              Flexible(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 80),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            child: const Text('Close'),
+                            onPressed: () {},
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            child: const Text('Reload'),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
