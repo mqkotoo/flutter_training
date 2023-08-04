@@ -5,7 +5,7 @@ on:
     types: [ opened, ready_for_review ]
 
 env:
-  REVIEWERS: 'Yamasaki-pan961'
+  REVIEWERS: Yamasaki-pan961, morikann
 
 jobs:
   assign:
