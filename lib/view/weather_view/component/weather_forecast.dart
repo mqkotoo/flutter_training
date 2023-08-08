@@ -5,7 +5,7 @@ class WeatherForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme.labelLarge!;
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
         //Placeholder
@@ -21,7 +21,7 @@ class WeatherForecast extends StatelessWidget {
               child: Text(
                 '** ℃',
                 textAlign: TextAlign.center,
-                style: textTheme.copyWith(
+                style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
                 ),
               ),
@@ -30,7 +30,7 @@ class WeatherForecast extends StatelessWidget {
               child: Text(
                 '** ℃',
                 textAlign: TextAlign.center,
-                style: textTheme.copyWith(
+                style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,
                 ),
               ),
