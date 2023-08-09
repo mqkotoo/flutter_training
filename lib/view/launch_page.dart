@@ -24,6 +24,8 @@ class _LaunchPageState extends State<LaunchPage> {
         ),
       ),
     );
+    //   WeatherPageから帰ってくるのを待つ
+    await _toWeatherPage();
   }
 
   @override
