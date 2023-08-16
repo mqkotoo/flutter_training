@@ -3,13 +3,13 @@ import 'package:flutter_training/model/weather_condition.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherRepository {
-  WeatherRepository({required this.client});
+  const WeatherRepository(this._client);
 
-  final YumemiWeather client;
+  final YumemiWeather _client;
 
   WeatherCondition? fetchWeather() {
     try {
-      final condition = client.fetchSimpleWeather();
+      final condition = _client.fetchSimpleWeather();
       return WeatherCondition.values.byName(condition);
     } on Exception catch (e) {
       debugPrint('$e');

@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: WeatherPage(weather: WeatherRepository(client: YumemiWeather())),
+      home: WeatherPage(weather: WeatherRepository(YumemiWeather())),
     );
   }
 }
