@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_training/model/weather_condition.dart';
+import 'package:flutter_training/utils/extention/enum.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherRepository {
@@ -8,12 +8,7 @@ class WeatherRepository {
   final YumemiWeather _client;
 
   WeatherCondition? fetchWeather() {
-    try {
-      final condition = _client.fetchSimpleWeather();
-      return WeatherCondition.values.byName(condition);
-    } on Exception catch (e) {
-      debugPrint('$e');
-      return null;
-    }
+    final condition = _client.fetchSimpleWeather();
+    return WeatherCondition.values.byNameOrNull(condition);
   }
 }
