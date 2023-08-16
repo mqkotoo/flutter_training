@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/repository/weather_repository.dart';
+import 'package:flutter_training/utils/extention/enum.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherPage extends StatefulWidget {
-  const WeatherPage({super.key, required this.weather});
-
-  final WeatherRepository weather;
+  const WeatherPage({super.key});
 
   @override
   State<WeatherPage> createState() => _WeatherPageState();
 }
 
-WeatherCondition? weatherCondition;
-
 class _WeatherPageState extends State<WeatherPage> {
+  WeatherCondition? weatherCondition;
+
+  //天気を取得してweatherConditionに代入する
+  void fetchWeather() {
+    final client = YumemiWeather();
+    setState(() {
+      final condition = client.fetchSimpleWeather();
+      weatherCondition = WeatherCondition.values.byNameOrNull(condition);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +47,8 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         Expanded(
                           child: TextButton(
+                            onPressed: fetchWeather,
                             child: const Text('Reload'),
-                            onPressed: () {
-                              setState(() {
-                                weatherCondition =
-                                    widget.weather.fetchWeather();
-                              });
-                            },
                           ),
                         ),
                       ],
