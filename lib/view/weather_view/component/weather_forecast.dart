@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 
 
@@ -18,10 +17,7 @@ class WeatherForecast extends StatelessWidget {
           aspectRatio: 1,
           child: weatherCondition == null
               ? const Placeholder()
-              : SvgPicture.asset(
-                  'images/${weatherCondition!.name}.svg',
-                  semanticsLabel: '${weatherCondition!.name} image',
-                ),
+              : weatherCondition!.svgImage,
         ),
         const SizedBox(height: 16),
         //Temperature
