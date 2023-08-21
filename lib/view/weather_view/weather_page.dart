@@ -13,12 +13,12 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   WeatherCondition? weatherCondition;
+  final _client = YumemiWeather();
 
   //天気を取得してweatherConditionに代入する
   void fetchWeather() {
-    final client = YumemiWeather();
+    final condition = _client.fetchSimpleWeather();
     setState(() {
-      final condition = client.fetchSimpleWeather();
       weatherCondition = WeatherCondition.values.byNameOrNull(condition);
     });
   }
