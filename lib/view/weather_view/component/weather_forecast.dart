@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 
-
 class WeatherForecast extends StatelessWidget {
   const WeatherForecast({super.key, required this.weatherCondition});
 
