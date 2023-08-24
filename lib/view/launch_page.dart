@@ -20,7 +20,7 @@ class LaunchPage extends StatefulWidget {
   State<LaunchPage> createState() => _LaunchPageState();
 }
 
-class _LaunchPageState extends State<LaunchPage> {
+class _LaunchPageState extends State<LaunchPage> with AfterDisplay {
   Future<void> _toWeatherPage() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (!mounted) {
@@ -37,9 +37,8 @@ class _LaunchPageState extends State<LaunchPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.endOfFrame.then((_) => _toWeatherPage());
+  void afterDisplay() {
+    _toWeatherPage();
   }
 
   @override
