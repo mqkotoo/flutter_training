@@ -17,7 +17,7 @@ class _WeatherPageState extends State<WeatherPage> {
 
   //天気を取得してweatherConditionに代入する
   void fetchWeather() {
-    final condition = _client.fetchSimpleWeather();
+    final condition = _client.fetchThrowsWeather('Aichi');
     setState(() {
       weatherCondition = WeatherCondition.values.byNameOrNull(condition);
     });
