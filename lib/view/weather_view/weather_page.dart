@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
+import 'package:flutter_training/utils/api/result.dart';
 import 'package:flutter_training/utils/extention/enum.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -16,11 +17,24 @@ class _WeatherPageState extends State<WeatherPage> {
   final _client = YumemiWeather();
 
   //天気を取得してweatherConditionに代入する
-  void fetchWeather() {
-    final condition = _client.fetchThrowsWeather('Aichi');
-    setState(() {
+  Result<WeatherCondition?, String> fetchWeather() {
+    try {
+      final condition = _client.fetchThrowsWeather('Aichi');
       weatherCondition = WeatherCondition.values.byNameOrNull(condition);
-    });
+      if (weatherCondition == null) {
+        return const Failure<WeatherCondition, String>('unknown');
+      }
+      return Success<WeatherCondition?, String>(
+        WeatherCondition.values.byNameOrNull(condition),
+      );
+    } on YumemiWeatherError catch (e) {
+      switch (e) {
+        case YumemiWeatherError.invalidParameter:
+          return const Failure<WeatherCondition?, String>('パラメータが間違っています。');
+        case YumemiWeatherError.unknown:
+          return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
+      }
+    }
   }
 
   @override
