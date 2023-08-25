@@ -16,25 +16,6 @@ class _WeatherPageState extends State<WeatherPage> {
   WeatherCondition? weatherCondition;
   final _client = YumemiWeather();
 
-  //天気を取得してweatherConditionに代入する
-  Result<WeatherCondition?, String> fetchWeather() {
-    try {
-      final condition = _client.fetchThrowsWeather('Aichi');
-      weatherCondition = WeatherCondition.values.byNameOrNull(condition);
-      if (weatherCondition == null) {
-        return const Failure<WeatherCondition, String>('unknown');
-      }
-      return Success<WeatherCondition?, String>(weatherCondition);
-    } on YumemiWeatherError catch (e) {
-      switch (e) {
-        case YumemiWeatherError.invalidParameter:
-          return const Failure<WeatherCondition?, String>('パラメータが間違っています。');
-        case YumemiWeatherError.unknown:
-          return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
