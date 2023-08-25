@@ -12,7 +12,7 @@ class WeatherService {
   /// If successful, the value is stored in "Success",
   /// if unsuccessful, the error message is stored in "Failure".
 
-  Result<WeatherCondition?, String> fetchWeather(YumemiWeather client) {
+  Result<WeatherCondition?, String> fetchWeather() {
     try {
       final condition = _client.fetchThrowsWeather('Aichi');
       final weatherCondition = WeatherCondition.values.byNameOrNull(condition);
