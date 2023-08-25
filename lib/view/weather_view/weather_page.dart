@@ -61,7 +61,19 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         Expanded(
                           child: TextButton(
-                            onPressed: fetchWeather,
+                            onPressed: () {
+                              switch (fetchWeather()) {
+                                case Success(value: final value):
+                                  setState(() => weatherCondition = value);
+                                  break;
+                                case Failure(exception: final error):
+                                  showDialog<void>(
+                                    context: context,
+                                    builder: (_) => _ErrorDialog(error),
+                                  );
+                                  break;
+                              }
+                            },
                             child: const Text('Reload'),
                           ),
                         ),
@@ -74,6 +86,26 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ErrorDialog extends StatelessWidget {
+  const _ErrorDialog(this.errorMessage);
+
+  final String errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('エラー'),
+      content: Text(errorMessage),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('OK'),
+        )
+      ],
     );
   }
 }
