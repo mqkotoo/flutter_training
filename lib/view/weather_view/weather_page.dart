@@ -24,9 +24,7 @@ class _WeatherPageState extends State<WeatherPage> {
       if (weatherCondition == null) {
         return const Failure<WeatherCondition, String>('unknown');
       }
-      return Success<WeatherCondition?, String>(
-        WeatherCondition.values.byNameOrNull(condition),
-      );
+      return Success<WeatherCondition?, String>(weatherCondition);
     } on YumemiWeatherError catch (e) {
       switch (e) {
         case YumemiWeatherError.invalidParameter:
