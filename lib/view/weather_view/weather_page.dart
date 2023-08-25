@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
-import 'package:flutter_training/utils/extention/enum.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
