@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/utils/mixin/after_display_mixin.dart';
 import 'package:flutter_training/view/weather_view/weather_page.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -8,7 +9,7 @@ class LaunchPage extends StatefulWidget {
   State<LaunchPage> createState() => _LaunchPageState();
 }
 
-class _LaunchPageState extends State<LaunchPage> {
+class _LaunchPageState extends State<LaunchPage> with AfterDisplayMixin {
   Future<void> _toWeatherPage() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (!mounted) {
@@ -25,9 +26,8 @@ class _LaunchPageState extends State<LaunchPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.endOfFrame.then((_) => _toWeatherPage());
+  void afterDisplay() {
+    _toWeatherPage();
   }
 
   @override
