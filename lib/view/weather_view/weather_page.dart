@@ -17,6 +17,7 @@ class _WeatherPageState extends State<WeatherPage> {
   final service = WeatherService(YumemiWeather());
 
   void _onReloaded() {
+    //fetchWeatherの結果がSuccessかFailureかで処理を分ける
     switch (service.fetchWeather()) {
       case Success(value: final value):
         setState(() => weatherCondition = value);
