@@ -24,6 +24,7 @@ class _WeatherPageState extends State<WeatherPage> {
         break;
       case Failure(exception: final error):
         showDialog<void>(
+          barrierDismissible: false,
           context: context,
           builder: (_) => _ErrorDialog(error),
         );
