@@ -21,14 +21,12 @@ class _WeatherPageState extends State<WeatherPage> {
     switch (service.fetchWeather()) {
       case Success(value: final value):
         setState(() => weatherCondition = value);
-        break;
       case Failure(exception: final error):
         showDialog<void>(
           barrierDismissible: false,
           context: context,
           builder: (_) => _ErrorDialog(error),
         );
-        break;
     }
   }
 
