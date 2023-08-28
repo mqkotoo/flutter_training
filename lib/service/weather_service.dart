@@ -21,7 +21,7 @@ class WeatherService {
       }
       return Success<WeatherCondition?, String>(weatherCondition);
     } on YumemiWeatherError catch (_) {
-      // 投げられる例外は`YumemiWeatherError.unknown`だけ
+      // 投げられるエラーは`YumemiWeatherError.unknown`だけ
       return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
     }
   }
