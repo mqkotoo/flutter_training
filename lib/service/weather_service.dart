@@ -20,13 +20,8 @@ class WeatherService {
         return const Failure<WeatherCondition, String>('unknown');
       }
       return Success<WeatherCondition?, String>(weatherCondition);
-    } on YumemiWeatherError catch (e) {
-      switch (e) {
-        case YumemiWeatherError.invalidParameter:
-          return const Failure<WeatherCondition?, String>('パラメータが間違っています。');
-        case YumemiWeatherError.unknown:
-          return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
-      }
+    } on YumemiWeatherError catch (_) {
+      return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
     }
   }
 }
