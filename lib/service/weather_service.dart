@@ -9,8 +9,8 @@ class WeatherService {
   final YumemiWeather _client;
 
   /// Get weather information
-  /// If successful, the value is stored in "Success",
-  /// if unsuccessful, the error message is stored in "Failure".
+  /// If successful, the value is stored in [Success],
+  /// if unsuccessful, the error message is stored in [Failure].
 
   Result<WeatherCondition?, String> fetchWeather() {
     try {
