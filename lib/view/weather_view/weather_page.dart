@@ -18,16 +18,14 @@ class _WeatherPageState extends State<WeatherPage> {
 
   void _onReloaded() {
     //fetchWeatherの結果がSuccessかFailureかで処理を分ける
-    switch (service.fetchWeather()) {
-      case Success(value: final value):
-        setState(() => weatherCondition = value);
-      case Failure(exception: final error):
-        showDialog<void>(
+    return switch (service.fetchWeather()) {
+      Success(value: final value) => setState(() => weatherCondition = value),
+      Failure(exception: final error) => showDialog<void>(
           barrierDismissible: false,
           context: context,
           builder: (_) => _ErrorDialog(error),
-        );
-    }
+        ),
+    };
   }
 
   @override
