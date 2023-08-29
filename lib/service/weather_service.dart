@@ -17,7 +17,7 @@ class WeatherService {
       final condition = _client.fetchThrowsWeather('Aichi');
       final weatherCondition = WeatherCondition.values.byNameOrNull(condition);
       if (weatherCondition == null) {
-        return const Failure<WeatherCondition, String>('unknown');
+        return const Failure<WeatherCondition?, String>('unknown');
       }
       return Success<WeatherCondition?, String>(weatherCondition);
     } on YumemiWeatherError catch (_) {
