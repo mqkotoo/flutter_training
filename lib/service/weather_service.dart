@@ -12,17 +12,17 @@ class WeatherService {
   /// If successful, the value is stored in [Success],
   /// if unsuccessful, the error message is stored in [Failure].
 
-  Result<WeatherCondition?, String> fetchWeather() {
+  Result<WeatherCondition, String> fetchWeather() {
     try {
       final condition = _client.fetchThrowsWeather('Aichi');
       final weatherCondition = WeatherCondition.values.byNameOrNull(condition);
       if (weatherCondition == null) {
-        return const Failure<WeatherCondition?, String>('unknown');
+        return const Failure<WeatherCondition, String>('unknown');
       }
-      return Success<WeatherCondition?, String>(weatherCondition);
+      return Success<WeatherCondition, String>(weatherCondition);
     } on YumemiWeatherError catch (_) {
       // 投げられるエラーは`YumemiWeatherError.unknown`だけ
-      return const Failure<WeatherCondition?, String>('予期せぬエラーが発生しました。');
+      return const Failure<WeatherCondition, String>('予期せぬエラーが発生しました。');
     }
   }
 }
