@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/utils/extention/enum.dart';
+import 'package:flutter_training/service/weather_service.dart';
+import 'package:flutter_training/utils/api/result.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -13,14 +14,18 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   WeatherCondition? weatherCondition;
-  final _client = YumemiWeather();
+  final service = WeatherService(YumemiWeather());
 
-  //天気を取得してweatherConditionに代入する
-  void fetchWeather() {
-    final condition = _client.fetchSimpleWeather();
-    setState(() {
-      weatherCondition = WeatherCondition.values.byNameOrNull(condition);
-    });
+  void _onReloaded() {
+    //fetchWeatherの結果がSuccessかFailureかで処理を分ける
+    return switch (service.fetchWeather()) {
+      Success(value: final value) => setState(() => weatherCondition = value),
+      Failure(exception: final error) => showDialog<void>(
+          barrierDismissible: false,
+          context: context,
+          builder: (_) => _ErrorDialog(error),
+        ),
+    };
   }
 
   @override
@@ -47,7 +52,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         Expanded(
                           child: TextButton(
-                            onPressed: fetchWeather,
+                            onPressed: _onReloaded,
                             child: const Text('Reload'),
                           ),
                         ),
@@ -60,6 +65,26 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ErrorDialog extends StatelessWidget {
+  const _ErrorDialog(this.errorMessage);
+
+  final String errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('エラー'),
+      content: Text(errorMessage),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('OK'),
+        )
+      ],
     );
   }
 }
