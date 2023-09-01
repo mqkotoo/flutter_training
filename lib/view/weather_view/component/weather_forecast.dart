@@ -15,9 +15,9 @@ class WeatherForecast extends StatelessWidget {
         //Placeholder
         AspectRatio(
           aspectRatio: 1,
-          child: weatherCondition == null
+          child: weatherData?.weatherCondition == null
               ? const Placeholder()
-              : weatherCondition!.svgImage,
+              : weatherData!.weatherCondition.svgImage,
         ),
         const SizedBox(height: 16),
         //Temperature
@@ -25,7 +25,9 @@ class WeatherForecast extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                '** ℃',
+                weatherData == null
+                    ? '** ℃'
+                    : '${weatherData!.minTemperature} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
@@ -34,7 +36,9 @@ class WeatherForecast extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                '** ℃',
+                weatherData == null
+                    ? '** ℃'
+                    : '${weatherData!.maxTemperature} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,
