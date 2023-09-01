@@ -1,6 +1,8 @@
-import 'package:flutter_training/model/weather_condition.dart';
+import 'dart:convert';
+
+import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/utils/api/result.dart';
-import 'package:flutter_training/utils/extention/enum.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherService {
@@ -12,17 +14,22 @@ class WeatherService {
   /// If successful, the value is stored in [Success],
   /// if unsuccessful, the error message is stored in [Failure].
 
-  Result<WeatherCondition, String> fetchWeather() {
+  Result<WeatherData, String> fetchWeather(WeatherRequest request) {
     try {
-      final condition = _client.fetchThrowsWeather('Aichi');
-      final weatherCondition = WeatherCondition.values.byNameOrNull(condition);
-      if (weatherCondition == null) {
-        return const Failure<WeatherCondition, String>('unknown');
-      }
-      return Success<WeatherCondition, String>(weatherCondition);
-    } on YumemiWeatherError catch (_) {
-      // 投げられるエラーは`YumemiWeatherError.unknown`だけ
-      return const Failure<WeatherCondition, String>('予期せぬエラーが発生しました。');
+      final jsonData = jsonEncode(request);
+      final resultJson = _client.fetchWeather(jsonData);
+      final weatherData = jsonDecode(resultJson) as Map<String, dynamic>;
+      final result = WeatherData.fromJson(weatherData);
+      return Success<WeatherData, String>(result);
+    } on YumemiWeatherError catch (e) {
+      return switch (e) {
+        YumemiWeatherError.invalidParameter =>
+          const Failure<WeatherData, String>('パラメータが有効ではありません。'),
+        YumemiWeatherError.unknown =>
+          const Failure<WeatherData, String>('予期せぬエラーが発生しました。')
+      };
+    } on FormatException {
+      return const Failure<WeatherData, String>('不適切なデータを取得しました。');
     }
   }
 }
