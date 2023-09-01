@@ -15,7 +15,7 @@ class WeatherForecast extends StatelessWidget {
         //Placeholder
         AspectRatio(
           aspectRatio: 1,
-          child: weatherData?.weatherCondition == null
+          child: weatherData == null
               ? const Placeholder()
               : weatherData!.weatherCondition.svgImage,
         ),
