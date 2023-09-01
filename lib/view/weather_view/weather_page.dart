@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
+import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
@@ -13,7 +15,7 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  WeatherCondition? weatherCondition;
+  WeatherData? weatherData;
   final service = WeatherService(YumemiWeather());
 
   void _onReloaded() {
@@ -37,7 +39,7 @@ class _WeatherPageState extends State<WeatherPage> {
           child: Column(
             children: [
               const Spacer(),
-              WeatherForecast(weatherCondition: weatherCondition),
+              WeatherForecast(weatherData: weatherData),
               Flexible(
                 child: Column(
                   children: [
