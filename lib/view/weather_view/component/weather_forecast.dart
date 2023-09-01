@@ -10,6 +10,7 @@ class WeatherForecast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final weatherData = this.weatherData;
     return Column(
       children: [
         //Placeholder
@@ -17,7 +18,7 @@ class WeatherForecast extends StatelessWidget {
           aspectRatio: 1,
           child: weatherData == null
               ? const Placeholder()
-              : weatherData!.weatherCondition.svgImage,
+              : weatherData.weatherCondition.svgImage,
         ),
         const SizedBox(height: 16),
         //Temperature
@@ -27,7 +28,7 @@ class WeatherForecast extends StatelessWidget {
               child: Text(
                 weatherData == null
                     ? '** ℃'
-                    : '${weatherData!.minTemperature} ℃',
+                    : '${weatherData.minTemperature} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
@@ -38,7 +39,7 @@ class WeatherForecast extends StatelessWidget {
               child: Text(
                 weatherData == null
                     ? '** ℃'
-                    : '${weatherData!.maxTemperature} ℃',
+                    : '${weatherData.maxTemperature} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,
