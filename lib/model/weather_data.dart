@@ -21,15 +21,12 @@ class WeatherData {
     final minTemperature = int.parse(json['min_temperature'].toString());
 
     final date = json['date']?.toString();
-    if (date == null) {
-      throw const FormatException('Value for "date" is missing or not valid.');
-    }
 
     return WeatherData(
       weatherCondition: weatherCondition,
       maxTemperature: maxTemperature,
       minTemperature: minTemperature,
-      date: DateTime.parse(date),
+      date: DateTime.parse(date!),
     );
   }
 
