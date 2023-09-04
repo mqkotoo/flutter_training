@@ -16,15 +16,9 @@ class WeatherData {
       throw const FormatException('Invalid value for [WeatherCondition].');
     }
 
-    final maxTemperature = int.tryParse(json['max_temperature'].toString());
-    if (maxTemperature == null) {
-      throw const FormatException('max_temperature must be a valid int.');
-    }
+    final maxTemperature = int.parse(json['max_temperature'].toString());
 
-    final minTemperature = int.tryParse(json['min_temperature'].toString());
-    if (minTemperature == null) {
-      throw const FormatException('min_temperature must be a valid int.');
-    }
+    final minTemperature = int.parse(json['min_temperature'].toString());
 
     final date = json['date']?.toString();
     if (date == null) {
