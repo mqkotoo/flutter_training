@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/utils/extention/enum.dart';
-import 'package:yumemi_weather/yumemi_weather.dart';
 
 class WeatherData {
   const WeatherData({
@@ -12,33 +10,25 @@ class WeatherData {
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
-    Never throwFormatException(String message) =>
-        throw FormatException(message);
-
-    Never throwInvalidError() =>
-        throw YumemiWeatherError.invalidParameter as Exception;
-
     final weatherCondition = WeatherCondition.values
         .byNameOrNull(json['weather_condition'].toString());
     if (weatherCondition == null) {
-      debugPrint('Invalid value for [WeatherCondition].');
-      throwInvalidError();
+      throw const FormatException('Invalid value for [WeatherCondition].');
     }
 
     final maxTemperature = int.tryParse(json['max_temperature'].toString());
     if (maxTemperature == null) {
-      throwFormatException('max_temperature must be a valid int.');
+      throw const FormatException('max_temperature must be a valid int.');
     }
 
     final minTemperature = int.tryParse(json['min_temperature'].toString());
     if (minTemperature == null) {
-      throwFormatException('max_temperature must be a valid int.');
+      throw const FormatException('min_temperature must be a valid int.');
     }
 
     final date = json['date']?.toString();
     if (date == null) {
-      debugPrint('Value for "date" is missing or not valid.');
-      throwInvalidError();
+      throw const FormatException('Value for "date" is missing or not valid.');
     }
 
     return WeatherData(
