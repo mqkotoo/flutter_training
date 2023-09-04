@@ -20,13 +20,13 @@ class WeatherData {
 
     final minTemperature = int.parse(json['min_temperature'].toString());
 
-    final date = json['date']?.toString();
+    final date = DateTime.parse(json['date']?.toString() ?? '');
 
     return WeatherData(
       weatherCondition: weatherCondition,
       maxTemperature: maxTemperature,
       minTemperature: minTemperature,
-      date: DateTime.parse(date!),
+      date: date,
     );
   }
 
