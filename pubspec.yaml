@@ -10,10 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_riverpod: ^2.4.0
   flutter_svg: ^2.0.7
 
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
+  riverpod_annotation: ^2.1.5
   yumemi_weather:
     git:
       url: https://github.com/yumemi-inc/flutter-training-template.git
@@ -29,6 +31,9 @@ dev_dependencies:
   flutter_gen_runner: ^5.3.1
   freezed: ^2.4.1
   json_serializable: ^6.7.1
+  riverpod_generator: ^2.3.2
+  custom_lint: ^0.5.3
+  riverpod_lint: ^2.0.4
 
 flutter_gen:
   integrations:
