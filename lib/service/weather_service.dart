@@ -32,7 +32,7 @@ class WeatherService {
     } on CheckedFromJsonException catch (_) {
       return const Failure<WeatherData, String>('不適切なデータを取得しました。');
     } on FormatException catch (_) {
-      return const Failure<WeatherData, String>('jsonのデコードに失敗しました。');
+      return const Failure<WeatherData, String>('不適切なデータを取得しました。');
     }
   }
 }
