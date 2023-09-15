@@ -3,3 +3,4 @@ include: package:blendthink_lints/recommended.yaml
 linter:
   rules:
     sort_pub_dependencies: false
+    always_use_package_imports: true
