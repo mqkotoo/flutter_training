@@ -3,8 +3,17 @@ import 'dart:convert';
 import 'package:flutter_training/model/weather_data.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/utils/api/result.dart';
+import 'package:flutter_training/utils/provider/yumemi_weather_client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
+
+part 'weather_service.g.dart';
+
+@riverpod
+WeatherService weatherService(WeatherServiceRef ref) {
+  return WeatherService(ref.read(yumemiWeatherClientProvider));
+}
 
 class WeatherService {
   WeatherService(this._client);
