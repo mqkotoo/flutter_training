@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_request.dart';
-import 'package:flutter_training/service/weather_service.dart';
-import 'package:flutter_training/utils/api/result.dart';
+import 'package:flutter_training/state/ui_state.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
-import 'package:yumemi_weather/yumemi_weather.dart';
 
-class WeatherPage extends StatefulWidget {
+class WeatherPage extends ConsumerWidget {
   const WeatherPage({super.key});
 
   @override
-  State<WeatherPage> createState() => _WeatherPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    void onReloaded(WeatherRequest request) {
+      ref.read(uiStateProvider.notifier).getWeather(
+            request: request,
+            onError: (errorMessage) => showDialog<void>(
+              barrierDismissible: false,
+              context: context,
+              builder: (_) => _ErrorDialog(errorMessage),
+            ),
+          );
+    }
 
-class _WeatherPageState extends State<WeatherPage> {
-  WeatherData? weatherData;
-  final service = WeatherService(YumemiWeather());
-
-  void _onReloaded() {
-    //fetchWeatherの結果がSuccessかFailureかで処理を分ける
-    return switch (service
-        .fetchWeather(WeatherRequest(area: 'Aichi', date: DateTime.now()))) {
-      Success(value: final value) => setState(() => weatherData = value),
-      Failure(exception: final error) => showDialog<void>(
-          barrierDismissible: false,
-          context: context,
-          builder: (_) => _ErrorDialog(error),
-        ),
-    };
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -39,7 +27,7 @@ class _WeatherPageState extends State<WeatherPage> {
           child: Column(
             children: [
               const Spacer(),
-              WeatherForecast(weatherData: weatherData),
+              const WeatherForecast(),
               Flexible(
                 child: Column(
                   children: [
@@ -54,7 +42,14 @@ class _WeatherPageState extends State<WeatherPage> {
                         ),
                         Expanded(
                           child: TextButton(
-                            onPressed: _onReloaded,
+                            onPressed: () {
+                              onReloaded(
+                                WeatherRequest(
+                                  area: 'Nagoya',
+                                  date: DateTime.now(),
+                                ),
+                              );
+                            },
                             child: const Text('Reload'),
                           ),
                         ),
