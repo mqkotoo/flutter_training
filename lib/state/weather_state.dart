@@ -4,10 +4,10 @@ import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'ui_state.g.dart';
+part 'weather_state.g.dart';
 
 @riverpod
-class UiState extends _$UiState {
+class WeatherState extends _$WeatherState {
   @override
   WeatherData? build() => null;
 

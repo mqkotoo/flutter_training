@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/state/ui_state.dart';
+import 'package:flutter_training/state/weather_state.dart';
 
 class WeatherForecast extends ConsumerWidget {
   const WeatherForecast({super.key});
@@ -9,7 +9,7 @@ class WeatherForecast extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final weatherData = ref.watch(uiStateProvider);
+    final weatherData = ref.watch(weatherStateProvider);
     return Column(
       children: [
         //Weather conditions

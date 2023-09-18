@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_request.dart';
-import 'package:flutter_training/state/ui_state.dart';
+import 'package:flutter_training/state/weather_state.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
 
 class WeatherPage extends ConsumerWidget {
@@ -10,7 +10,7 @@ class WeatherPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void onReloaded(WeatherRequest request) {
-      ref.read(uiStateProvider.notifier).getWeather(
+      ref.read(weatherStateProvider.notifier).getWeather(
             request: request,
             onError: (errorMessage) => showDialog<void>(
               barrierDismissible: false,
