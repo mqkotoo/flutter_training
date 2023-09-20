@@ -12,7 +12,7 @@ part 'weather_service.g.dart';
 
 @riverpod
 WeatherService weatherService(WeatherServiceRef ref) {
-  return WeatherService(ref.read(yumemiWeatherClientProvider));
+  return WeatherService(ref.watch(yumemiWeatherClientProvider));
 }
 
 class WeatherService {
