@@ -30,12 +30,6 @@ fvm install
 fvm flutter pub get
 ```
 
-* freezed等のコード生成
-
-```
-fvm flutter pub run build_runner build
-```
-
 * ビルドラン
 
 ```
