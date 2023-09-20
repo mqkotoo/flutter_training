@@ -7,7 +7,7 @@ part of 'yumemi_weather_client.dart';
 // **************************************************************************
 
 String _$yumemiWeatherClientHash() =>
-    r'f9fd5583a7a9b1d6e00d0300689719ad9fa0e31d';
+    r'e40a0489f105c552873993d37c21849839ab751f';
 
 /// See also [yumemiWeatherClient].
 @ProviderFor(yumemiWeatherClient)
