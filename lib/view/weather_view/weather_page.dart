@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/state/weather_state.dart';
-import 'package:flutter_training/view/weather_view/component/weather_forecast.dart';
+import 'package:flutter_training/view/weather_view/component/weather_forecast_panel.dart';
 
 class WeatherPage extends ConsumerWidget {
   const WeatherPage({super.key});
@@ -27,7 +27,7 @@ class WeatherPage extends ConsumerWidget {
           child: Column(
             children: [
               const Spacer(),
-              const WeatherForecast(),
+              const WeatherForecastPanel(),
               Flexible(
                 child: Column(
                   children: [

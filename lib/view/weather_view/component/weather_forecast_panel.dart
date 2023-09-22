@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/state/weather_state.dart';
 
-class WeatherForecast extends ConsumerWidget {
-  const WeatherForecast({super.key});
+class WeatherForecastPanel extends ConsumerWidget {
+  const WeatherForecastPanel({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
