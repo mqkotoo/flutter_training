@@ -10,7 +10,7 @@ class WeatherPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void onReloaded(WeatherRequest request) {
-      ref.read(weatherStateProvider.notifier).getWeather(
+      ref.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (errorMessage) => showDialog<void>(
               barrierDismissible: false,

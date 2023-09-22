@@ -9,7 +9,7 @@ class WeatherForecast extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final weatherData = ref.watch(weatherStateProvider);
+    final weatherData = ref.watch(weatherStateNotifierProvider);
     return Column(
       children: [
         //Weather conditions

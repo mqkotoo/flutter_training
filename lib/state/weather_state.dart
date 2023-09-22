@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'weather_state.g.dart';
 
 @riverpod
-class WeatherState extends _$WeatherState {
+class WeatherStateNotifier extends _$WeatherStateNotifier {
   @override
   WeatherData? build() => null;
 
