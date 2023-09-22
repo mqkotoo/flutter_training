@@ -7,12 +7,12 @@ part of 'weather_state.dart';
 // **************************************************************************
 
 String _$weatherStateNotifierHash() =>
-    r'225c600468e970e291290d64bdc24d7ec8299bd5';
+    r'35c0e0b792c3a537c238cee332b4c4d384973a61';
 
 /// See also [WeatherStateNotifier].
 @ProviderFor(WeatherStateNotifier)
-final weatherStateNotifierProvider =
-    AutoDisposeNotifierProvider<WeatherStateNotifier, WeatherData?>.internal(
+final weatherStateNotifierProvider = AutoDisposeNotifierProvider<
+    WeatherStateNotifier, WeatherForecast?>.internal(
   WeatherStateNotifier.new,
   name: r'weatherStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final weatherStateNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$WeatherStateNotifier = AutoDisposeNotifier<WeatherData?>;
+typedef _$WeatherStateNotifier = AutoDisposeNotifier<WeatherForecast?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

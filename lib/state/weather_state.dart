@@ -1,4 +1,4 @@
-import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
@@ -9,7 +9,7 @@ part 'weather_state.g.dart';
 @riverpod
 class WeatherStateNotifier extends _$WeatherStateNotifier {
   @override
-  WeatherData? build() => null;
+  WeatherForecast? build() => null;
 
   void getWeather({
     required WeatherRequest request,
