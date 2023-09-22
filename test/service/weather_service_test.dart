@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/model/weather_condition.dart';
@@ -23,15 +21,14 @@ const jsonData = '''
         }
         ''';
 
+final request = WeatherRequest(
+  area: 'Nagoya',
+  date: DateTime(2023, 9, 19),
+);
+
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
   final mockClient = MockYumemiWeather();
-  when(mockClient.fetchWeather(any)).thenReturn(jsonData);
-
-  final request = WeatherRequest(
-    area: 'Nagoya',
-    date: DateTime(2023, 9, 19),
-  );
 
   late ProviderContainer container;
 
@@ -46,21 +43,23 @@ void main() {
     container.dispose();
   });
 
-  test('fetchWeather()', () {
-    // when(mockClient.fetchWeather(any))
-    //     .thenThrow(YumemiWeatherError.invalidParameter);
+  test('success case: fetchWeather()', () {
+    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
 
     final result = container.read(weatherServiceProvider).fetchWeather(request);
 
     expect(
       result,
-      // WeatherData.fromJson(jsonDecode(jsonData) as Map<String, dynamic>),
-      Success<WeatherData, String>(
-        WeatherData.fromJson(
-          jsonDecode(jsonData) as Map<String, dynamic>,
+      isA<Success<WeatherData, String>>().having(
+        (success) => success.value,
+        'success weather data',
+        WeatherData(
+          weatherCondition: WeatherCondition.cloudy,
+          maxTemperature: 25,
+          minTemperature: 7,
+          date: DateTime(2023, 9, 19),
         ),
       ),
-      // const Failure<WeatherData, String>('パラメータが有効ではありません。'),
     );
   });
 }
