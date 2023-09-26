@@ -21,15 +21,11 @@ WeatherForecast _$WeatherForecastFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$WeatherForecast {
   WeatherCondition get weatherCondition => throw _privateConstructorUsedError;
-
   int get maxTemperature => throw _privateConstructorUsedError;
-
   int get minTemperature => throw _privateConstructorUsedError;
-
   DateTime get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $WeatherForecastCopyWith<WeatherForecast> get copyWith =>
       throw _privateConstructorUsedError;
@@ -40,7 +36,6 @@ abstract class $WeatherForecastCopyWith<$Res> {
   factory $WeatherForecastCopyWith(
           WeatherForecast value, $Res Function(WeatherForecast) then) =
       _$WeatherForecastCopyWithImpl<$Res, WeatherForecast>;
-
   @useResult
   $Res call(
       {WeatherCondition weatherCondition,
@@ -56,7 +51,6 @@ class _$WeatherForecastCopyWithImpl<$Res, $Val extends WeatherForecast>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -95,7 +89,6 @@ abstract class _$$_WeatherForecastCopyWith<$Res>
   factory _$$_WeatherForecastCopyWith(
           _$_WeatherForecast value, $Res Function(_$_WeatherForecast) then) =
       __$$_WeatherForecastCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
@@ -213,16 +206,12 @@ abstract class _WeatherForecast implements WeatherForecast {
 
   @override
   WeatherCondition get weatherCondition;
-
   @override
   int get maxTemperature;
-
   @override
   int get minTemperature;
-
   @override
   DateTime get date;
-
   @override
   @JsonKey(ignore: true)
   _$$_WeatherForecastCopyWith<_$_WeatherForecast> get copyWith =>

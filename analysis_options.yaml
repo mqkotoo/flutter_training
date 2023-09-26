@@ -5,5 +5,8 @@ linter:
     sort_pub_dependencies: false
 
 analyzer:
+  errors:
+    # riverpod_generatorの影響でg.dartの末尾に不要な指定がつくので記載
+    duplicate_ignore: ignore
   plugins:
     - custom_lint
