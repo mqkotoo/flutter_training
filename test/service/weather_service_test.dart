@@ -62,4 +62,20 @@ void main() {
       ),
     );
   });
+
+  test('fail(invalidParameter) case: fetchWeather()', () {
+    when(mockClient.fetchWeather(any))
+        .thenThrow(YumemiWeatherError.invalidParameter);
+
+    final result = container.read(weatherServiceProvider).fetchWeather(request);
+
+    expect(
+      result,
+      isA<Failure<WeatherData, String>>().having(
+        (error) => error.exception,
+        'error message',
+        'パラメータが有効ではありません。',
+      ),
+    );
+  });
 }
