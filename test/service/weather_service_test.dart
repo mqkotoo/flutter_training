@@ -80,5 +80,21 @@ void main() {
         ),
       );
     });
+
+    test('fail(unknown) case', () {
+      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+
+      final result =
+          container.read(weatherServiceProvider).fetchWeather(request);
+
+      expect(
+        result,
+        isA<Failure<WeatherData, String>>().having(
+          (error) => error.exception,
+          'error message',
+          '予期せぬエラーが発生しました。',
+        ),
+      );
+    });
   });
 }
