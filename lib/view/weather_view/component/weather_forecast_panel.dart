@@ -9,13 +9,13 @@ class WeatherForecastPanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    final weatherData = ref.watch(weatherStateNotifierProvider);
+    final weatherState = ref.watch(weatherStateNotifierProvider);
     return Column(
       children: [
         //Weather conditions
         AspectRatio(
           aspectRatio: 1,
-          child: weatherData?.weatherCondition.svgImage ?? const Placeholder(),
+          child: weatherState?.weatherCondition.svgImage ?? const Placeholder(),
         ),
         const SizedBox(height: 16),
         //Temperature
@@ -23,7 +23,7 @@ class WeatherForecastPanel extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                '${weatherData?.minTemperature ?? '**'} ℃',
+                '${weatherState?.minTemperature ?? '**'} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
@@ -32,7 +32,7 @@ class WeatherForecastPanel extends ConsumerWidget {
             ),
             Expanded(
               child: Text(
-                '${weatherData?.maxTemperature ?? '**'} ℃',
+                '${weatherState?.maxTemperature ?? '**'} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,
