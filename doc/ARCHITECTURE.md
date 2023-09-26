@@ -1,6 +1,6 @@
 ## アーキテクチャ
 
-今回のプロジェクトではあえて、いわゆるアーキテクチャというような大掛かりな設計はせずに、[`WeatherStateNotifier`](../lib/state/weather_state.dart)
+今回のプロジェクトではあえて、いわゆるアーキテクチャというような大掛かりな設計はせずに、[`WeatherStateNotifier`](../lib/state/weather_state_notifier.dart)
 という、天気の取得操作、結果を管理するプロバイダーを作成し、Viewレイヤとやりとりするだけのシンプルな設計にしました。
 
 ### ルール

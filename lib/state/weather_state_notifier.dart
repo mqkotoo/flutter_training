@@ -4,7 +4,7 @@ import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'weather_state.g.dart';
+part 'weather_state_notifier.g.dart';
 
 @riverpod
 class WeatherStateNotifier extends _$WeatherStateNotifier {
