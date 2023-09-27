@@ -81,13 +81,13 @@ flowchart TB
     Provider[[provider]];
   end
 
-  weatherStateProvider[["weatherStateProvider"]];
+  weatherStateNotifierProvider[["weatherStateNotifierProvider"]];
   weatherServiceProvider[["weatherServiceProvider"]];
   yumemiWeatherClientProvider[["yumemiWeatherClientProvider"]];
-  WeatherForecast((WeatherForecast));
+  WeatherForecastPanel((WeatherForecastPanel));
   WeatherPage((WeatherPage));
 
-  weatherStateProvider ==> WeatherForecast;
-  weatherStateProvider -.-> WeatherPage;
+  weatherStateNotifierProvider ==> WeatherForecastPanel;
+  weatherStateNotifierProvider -.-> WeatherPage;
   yumemiWeatherClientProvider ==> weatherServiceProvider;
 ```
