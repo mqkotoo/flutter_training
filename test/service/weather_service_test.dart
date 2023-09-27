@@ -28,43 +28,42 @@ final request = WeatherRequest(
 
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
-  group('fetchWeather()', () {
-    final mockClient = MockYumemiWeather();
-    late ProviderContainer container;
+  final mockClient = MockYumemiWeather();
+  late ProviderContainer container;
 
-    setUpAll(() {
-      //mockのYumemiWeatherでDIする
-      container = ProviderContainer(
-        overrides: [yumemiWeatherClientProvider.overrideWithValue(mockClient)],
-      );
-    });
+  setUpAll(() {
+    //mockのYumemiWeatherでDIする
+    container = ProviderContainer(
+      overrides: [yumemiWeatherClientProvider.overrideWithValue(mockClient)],
+    );
+  });
 
-    tearDownAll(() {
-      container.dispose();
-    });
+  tearDownAll(() {
+    container.dispose();
+  });
 
-    test('success case', () {
-      when(mockClient.fetchWeather(any)).thenReturn(jsonData);
+  test('success case', () {
+    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
 
-      final result =
-          container.read(weatherServiceProvider).fetchWeather(request);
+    final result = container.read(weatherServiceProvider).fetchWeather(request);
 
-      expect(
-        result,
-        isA<Success<WeatherData, String>>().having(
-          (success) => success.value,
-          'success weather data',
-          WeatherData(
-            weatherCondition: WeatherCondition.cloudy,
-            maxTemperature: 25,
-            minTemperature: 7,
-            date: DateTime(2023, 9, 19),
-          ),
+    expect(
+      result,
+      isA<Success<WeatherData, String>>().having(
+        (success) => success.value,
+        'success weather data',
+        WeatherData(
+          weatherCondition: WeatherCondition.cloudy,
+          maxTemperature: 25,
+          minTemperature: 7,
+          date: DateTime(2023, 9, 19),
         ),
-      );
-    });
+      ),
+    );
+  });
 
-    test('fail(invalidParameter) case', () {
+  group('failure case', () {
+    test('invalidParameter error', () {
       when(mockClient.fetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -81,7 +80,7 @@ void main() {
       );
     });
 
-    test('fail(unknown) case', () {
+    test('unknown error', () {
       when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
 
       final result =
