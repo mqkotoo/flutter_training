@@ -53,8 +53,8 @@
 ### WeatherPage
 
 * アプリのメイン画面
-* `Reload`ボタンを押して、`weatherStateProvider`をreadして、天気の取得処理を行う。
-* `weatherStateProvider`で天気取得に失敗した場合は、エラーメッセージを表示する。
+* `Reload`ボタンを押して、`weatherStateNotifierProvider`をreadして、天気の取得処理を行う。
+* `weatherStateNotifierProvider`で天気取得に失敗した場合は、エラーメッセージを表示する。
 
 ### WeatherForecastPanel
 
