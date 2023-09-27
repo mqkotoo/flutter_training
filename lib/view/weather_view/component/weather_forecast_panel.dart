@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/state/weather_state_notifier.dart';
 
-class WeatherForecast extends StatelessWidget {
-  const WeatherForecast({super.key, required this.weatherData});
-
-  final WeatherData? weatherData;
+class WeatherForecastPanel extends ConsumerWidget {
+  const WeatherForecastPanel({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final weatherState = ref.watch(weatherStateNotifierProvider);
     return Column(
       children: [
         //Weather conditions
         AspectRatio(
           aspectRatio: 1,
-          child: weatherData?.weatherCondition.svgImage ?? const Placeholder(),
+          child: weatherState?.weatherCondition.svgImage ?? const Placeholder(),
         ),
         const SizedBox(height: 16),
         //Temperature
@@ -23,7 +23,7 @@ class WeatherForecast extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                '${weatherData?.minTemperature ?? '**'} ℃',
+                '${weatherState?.minTemperature ?? '**'} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
@@ -32,7 +32,7 @@ class WeatherForecast extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                '${weatherData?.maxTemperature ?? '**'} ℃',
+                '${weatherState?.maxTemperature ?? '**'} ℃',
                 textAlign: TextAlign.center,
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,

@@ -2,18 +2,18 @@
 
 // ignore_for_file: type=lint, implicit_dynamic_parameter, implicit_dynamic_type, implicit_dynamic_method, strict_raw_type
 
-part of 'weather_data.dart';
+part of 'weather_forecast.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_WeatherData _$$_WeatherDataFromJson(Map<String, dynamic> json) =>
+_$_WeatherForecast _$$_WeatherForecastFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_WeatherData',
+      r'_$_WeatherForecast',
       json,
       ($checkedConvert) {
-        final val = _$_WeatherData(
+        final val = _$_WeatherForecast(
           weatherCondition: $checkedConvert('weather_condition',
               (v) => $enumDecode(_$WeatherConditionEnumMap, v)),
           maxTemperature: $checkedConvert('max_temperature', (v) => v as int),
@@ -29,7 +29,7 @@ _$_WeatherData _$$_WeatherDataFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$$_WeatherDataToJson(_$_WeatherData instance) =>
+Map<String, dynamic> _$$_WeatherForecastToJson(_$_WeatherForecast instance) =>
     <String, dynamic>{
       'weather_condition':
           _$WeatherConditionEnumMap[instance.weatherCondition]!,
