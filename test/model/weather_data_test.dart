@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 void main() {
@@ -17,7 +17,7 @@ void main() {
         }
         ''';
       final data = json.decode(jsonData) as Map<String, dynamic>;
-      final result = WeatherData.fromJson(data);
+      final result = WeatherForecast.fromJson(data);
 
       expect(result.weatherCondition, WeatherCondition.cloudy);
       expect(result.maxTemperature, 25);
@@ -41,7 +41,7 @@ void main() {
       final data = json.decode(jsonData) as Map<String, dynamic>;
 
       expect(
-        () => WeatherData.fromJson(data),
+            () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
       );
     });

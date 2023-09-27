@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/model/weather_condition.dart';
-import 'package:flutter_training/model/weather_data.dart';
+import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
-import 'package:flutter_training/utils/provider/yumemi_weather_client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -49,10 +48,10 @@ void main() {
 
     expect(
       result,
-      isA<Success<WeatherData, String>>().having(
+      isA<Success<WeatherForecast, String>>().having(
         (success) => success.value,
         'success weather data',
-        WeatherData(
+        WeatherForecast(
           weatherCondition: WeatherCondition.cloudy,
           maxTemperature: 25,
           minTemperature: 7,
@@ -72,7 +71,7 @@ void main() {
 
       expect(
         result,
-        isA<Failure<WeatherData, String>>().having(
+        isA<Failure<WeatherForecast, String>>().having(
           (error) => error.exception,
           'error message',
           'パラメータが有効ではありません。',
@@ -88,7 +87,7 @@ void main() {
 
       expect(
         result,
-        isA<Failure<WeatherData, String>>().having(
+        isA<Failure<WeatherForecast, String>>().having(
           (error) => error.exception,
           'error message',
           '予期せぬエラーが発生しました。',
