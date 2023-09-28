@@ -63,4 +63,49 @@ void main() {
       ),
     );
   });
+
+  group('failure case: getWeather()', () {
+    test('unknown error case', () {
+      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+
+      //　表示されるエラーメッセージを格納
+      String? errorMessage;
+
+      //　天気の取得処理を実行して、結果をstateに流す
+      container.read(weatherStateNotifierProvider.notifier).getWeather(
+            request: request,
+            onError: (e) {
+              errorMessage = e;
+            },
+          );
+
+      final weatherState = container.read(weatherStateNotifierProvider);
+
+      //取得はできてない
+      expect(weatherState, null);
+      expect(errorMessage, '予期せぬエラーが発生しました。');
+    });
+
+    test('invalidParameter error case', () {
+      when(mockClient.fetchWeather(any))
+          .thenThrow(YumemiWeatherError.invalidParameter);
+
+      //　表示されるエラーメッセージを格納
+      String? errorMessage;
+
+      //　天気の取得処理を実行して、結果をstateに流す
+      container.read(weatherStateNotifierProvider.notifier).getWeather(
+            request: request,
+            onError: (e) {
+              errorMessage = e;
+            },
+          );
+
+      final weatherState = container.read(weatherStateNotifierProvider);
+
+      //取得はできてない
+      expect(weatherState, null);
+      expect(errorMessage, 'パラメータが有効ではありません。');
+    });
+  });
 }
