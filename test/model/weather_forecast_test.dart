@@ -28,13 +28,13 @@ void main() {
   });
 
   group('failure case: fromJon', () {
-    test('should handle invalid JSON data', () {
+    test('jsonData has wrong key', () {
       const jsonData = '''
         {
-          "weather_condition": null,
-          "max_temperature": "invalid", 
+          "weather_condition_wrong_key": "cloudy",
+          "max_temperature": 25, 
           "min_temperature": 7,
-          "date": "invalid_date"
+          "date": "2023-09-19 10:24:31.877"
         }
         ''';
 
