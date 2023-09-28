@@ -28,6 +28,25 @@ void main() {
   });
 
   group('failure case: fromJon', () {
+    test('non-exist weather', () {
+      const jsonData = '''
+        {
+          "weather_condition": "thunder",
+          "max_temperature": 25, 
+          "min_temperature": 7,
+          "date": "2023-09-19 10:24:31.877"
+        }
+        ''';
+
+      final data = json.decode(jsonData) as Map<String, dynamic>;
+
+      expect(
+        () => WeatherForecast.fromJson(data),
+        throwsA(isA<CheckedFromJsonException>()),
+        reason: 'thunder does not exist in WeatherCondition',
+      );
+    });
+
     test('jsonData has wrong key', () {
       const jsonData = '''
         {
@@ -41,7 +60,7 @@ void main() {
       final data = json.decode(jsonData) as Map<String, dynamic>;
 
       expect(
-        () => WeatherForecast.fromJson(data),
+            () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
       );
     });
@@ -59,7 +78,7 @@ void main() {
       final data = json.decode(jsonData) as Map<String, dynamic>;
 
       expect(
-        () => WeatherForecast.fromJson(data),
+            () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
         reason: 'weather_condition expect <WeatherCondition>',
       );
@@ -77,7 +96,7 @@ void main() {
       final data = json.decode(jsonData) as Map<String, dynamic>;
 
       expect(
-        () => WeatherForecast.fromJson(data),
+            () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
         reason: 'min_temperature is required',
       );
