@@ -61,6 +61,25 @@ void main() {
       expect(
         () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
+        reason: 'weather_condition expect <WeatherCondition>',
+      );
+    });
+
+    test('required property is missing', () {
+      const jsonData = '''
+        {
+          "weather_condition": "cloudy",
+          "max_temperature": 25, 
+          "date": "2023-09-19 10:24:31.877"
+        }
+        ''';
+
+      final data = json.decode(jsonData) as Map<String, dynamic>;
+
+      expect(
+        () => WeatherForecast.fromJson(data),
+        throwsA(isA<CheckedFromJsonException>()),
+        reason: 'min_temperature is required',
       );
     });
   });
