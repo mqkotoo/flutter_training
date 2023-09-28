@@ -41,7 +41,25 @@ void main() {
       final data = json.decode(jsonData) as Map<String, dynamic>;
 
       expect(
-            () => WeatherForecast.fromJson(data),
+        () => WeatherForecast.fromJson(data),
+        throwsA(isA<CheckedFromJsonException>()),
+      );
+    });
+
+    test('unexpected type of value', () {
+      const jsonData = '''
+        {
+          "weather_condition": 42.195,
+          "max_temperature": 25, 
+          "min_temperature": 7,
+          "date": "2023-09-19 10:24:31.877"
+        }
+        ''';
+
+      final data = json.decode(jsonData) as Map<String, dynamic>;
+
+      expect(
+        () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
       );
     });
