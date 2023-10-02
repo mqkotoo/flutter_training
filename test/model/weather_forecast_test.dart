@@ -15,7 +15,7 @@ void main() {
           "date": "2023-09-19 10:24:31.877"
         }
         ''';
-    final data = json.decode(jsonData) as Map<String, dynamic>;
+    final data = jsonDecode(jsonData) as Map<String, dynamic>;
     final result = WeatherForecast.fromJson(data);
 
     expect(result.weatherCondition, WeatherCondition.cloudy);
@@ -38,7 +38,7 @@ void main() {
         }
         ''';
 
-      final data = json.decode(jsonData) as Map<String, dynamic>;
+      final data = jsonDecode(jsonData) as Map<String, dynamic>;
 
       expect(
         () => WeatherForecast.fromJson(data),
@@ -57,10 +57,10 @@ void main() {
         }
         ''';
 
-      final data = json.decode(jsonData) as Map<String, dynamic>;
+      final data = jsonDecode(jsonData) as Map<String, dynamic>;
 
       expect(
-            () => WeatherForecast.fromJson(data),
+        () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
       );
     });
@@ -75,10 +75,10 @@ void main() {
         }
         ''';
 
-      final data = json.decode(jsonData) as Map<String, dynamic>;
+      final data = jsonDecode(jsonData) as Map<String, dynamic>;
 
       expect(
-            () => WeatherForecast.fromJson(data),
+        () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
         reason: 'weather_condition expect <WeatherCondition>',
       );
@@ -93,10 +93,10 @@ void main() {
         }
         ''';
 
-      final data = json.decode(jsonData) as Map<String, dynamic>;
+      final data = jsonDecode(jsonData) as Map<String, dynamic>;
 
       expect(
-            () => WeatherForecast.fromJson(data),
+        () => WeatherForecast.fromJson(data),
         throwsA(isA<CheckedFromJsonException>()),
         reason: 'min_temperature is required',
       );
@@ -104,7 +104,7 @@ void main() {
   });
 
   // jsonのデコードのテストも以下に書く
-  test('json.decode() success case', () {
+  test('jsonDecode() success case', () {
     const jsonData = '''
         {
           "weather_condition": "cloudy",
@@ -114,7 +114,7 @@ void main() {
         }
         ''';
 
-    final decodedData = json.decode(jsonData) as Map<String, dynamic>;
+    final decodedData = jsonDecode(jsonData) as Map<String, dynamic>;
 
     expect(decodedData, isA<Map<String, dynamic>>());
     expect(decodedData['weather_condition'], 'cloudy');
@@ -123,11 +123,11 @@ void main() {
     expect(decodedData['date'], '2023-09-19 10:24:31.877');
   });
 
-  test('json.decode() failure case', () {
+  test('jsonDecode() failure case', () {
     const jsonData = '{invalid json data}';
 
     expect(
-      () => json.decode(jsonData) as Map<String, dynamic>,
+      () => jsonDecode(jsonData) as Map<String, dynamic>,
       throwsA(isA<FormatException>()),
     );
   });
