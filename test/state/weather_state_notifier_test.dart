@@ -29,6 +29,8 @@ const invalidJsonDataForFromJsonException = '''
         }
         ''';
 
+const invalidJsonDataForFormatException = '{invalid json data}';
+
 final request = WeatherRequest(
   area: 'Nagoya',
   date: DateTime(2023, 9, 19),
@@ -120,6 +122,28 @@ void main() {
     test('fromJson error case', () {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFromJsonException);
+
+      //　表示されるエラーメッセージを格納
+      String? errorMessage;
+
+      //　天気の取得処理を実行して、結果をstateに流す
+      container.read(weatherStateNotifierProvider.notifier).getWeather(
+            request: request,
+            onError: (e) {
+              errorMessage = e;
+            },
+          );
+
+      final weatherState = container.read(weatherStateNotifierProvider);
+
+      //取得はできてない
+      expect(weatherState, null);
+      expect(errorMessage, '不適切なデータを取得しました。');
+    });
+
+    test('jsonDecode() error case', () {
+      when(mockClient.fetchWeather(any))
+          .thenReturn(invalidJsonDataForFormatException);
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
