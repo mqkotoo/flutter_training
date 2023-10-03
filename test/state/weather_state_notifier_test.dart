@@ -39,7 +39,7 @@ final request = WeatherRequest(
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
   final mockClient = MockYumemiWeather();
-  late final ProviderContainer container;
+  late ProviderContainer container;
 
   setUp(() {
     //mockのYumemiWeatherでDIする
