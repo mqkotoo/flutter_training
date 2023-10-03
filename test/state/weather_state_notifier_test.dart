@@ -39,16 +39,16 @@ final request = WeatherRequest(
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
   final mockClient = MockYumemiWeather();
-  late ProviderContainer container;
+  late final ProviderContainer container;
 
-  setUpAll(() {
+  setUp(() {
     //mockのYumemiWeatherでDIする
     container = ProviderContainer(
       overrides: [yumemiWeatherClientProvider.overrideWithValue(mockClient)],
     );
   });
 
-  tearDownAll(() {
+  tearDown(() {
     container.dispose();
   });
 
