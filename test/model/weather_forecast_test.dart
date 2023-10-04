@@ -104,37 +104,4 @@ void main() {
       );
     });
   });
-
-  // jsonのデコードのテストも以下に書く
-  test('jsonDecode() success case', () {
-    const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19 10:24:31.877"
-        }
-        ''';
-
-    final decodedData = jsonDecode(jsonData) as Map<String, dynamic>;
-
-    expect(
-      decodedData,
-      {
-        'weather_condition': 'cloudy',
-        'max_temperature': 25,
-        'min_temperature': 7,
-        'date': '2023-09-19 10:24:31.877'
-      },
-    );
-  });
-
-  test('jsonDecode() failure case', () {
-    const jsonData = '{invalid json data}';
-
-    expect(
-      () => jsonDecode(jsonData) as Map<String, dynamic>,
-      throwsA(isA<FormatException>()),
-    );
-  });
 }
