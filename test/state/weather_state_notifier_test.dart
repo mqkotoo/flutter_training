@@ -20,7 +20,7 @@ const jsonData = '''
         }
         ''';
 
-const invalidJsonDataForFromJsonException = '''
+const invalidJsonDataForCheckedFromJsonException = '''
         {
           "weather_condition": "thunder",
           "max_temperature": 25.0, 
@@ -76,7 +76,7 @@ void main() {
   });
 
   group('failure case: getWeather()', () {
-    test('unknown error case', () {
+    test('an unknown error is thrown', () {
       when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
 
       //　表示されるエラーメッセージを格納
@@ -97,7 +97,7 @@ void main() {
       expect(errorMessage, '予期せぬエラーが発生しました。');
     });
 
-    test('invalidParameter error case', () {
+    test('invalidParameter error is thrown', () {
       when(mockClient.fetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -119,9 +119,9 @@ void main() {
       expect(errorMessage, 'パラメータが有効ではありません。');
     });
 
-    test('fromJson error case', () {
+    test('CheckedFromJsonException error is thrown', () {
       when(mockClient.fetchWeather(any))
-          .thenReturn(invalidJsonDataForFromJsonException);
+          .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
@@ -141,7 +141,7 @@ void main() {
       expect(errorMessage, '不適切なデータを取得しました。');
     });
 
-    test('jsonDecode() error case', () {
+    test('received data is not in JSON format', () {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 

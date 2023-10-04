@@ -62,7 +62,7 @@ void main() {
   });
 
   group('failure case', () {
-    test('invalidParameter error', () {
+    test('invalidParameter error is thrown', () {
       when(mockClient.fetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -79,7 +79,7 @@ void main() {
       );
     });
 
-    test('unknown error', () {
+    test('unknown error is thrown', () {
       when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
 
       final result =
