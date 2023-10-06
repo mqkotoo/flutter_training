@@ -29,7 +29,7 @@ void main() {
     );
   });
 
-  group('failure case: fromJon', () {
+  group('fromJson failure: CheckedFromJsonException should be thrown.', () {
     test('non-exist weather', () {
       const jsonData = '''
         {
