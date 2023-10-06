@@ -8,5 +8,8 @@ analyzer:
   errors:
     # riverpod_generatorの影響でg.dartの末尾に不要な指定がつくので記載
     duplicate_ignore: ignore
+    # @visibleForTestingアノテーションがついたメンバが参照されるとエラーにする
+    invalid_use_of_visible_for_testing_member: error
+
   plugins:
     - custom_lint
