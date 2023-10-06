@@ -62,8 +62,6 @@ void main() {
 
     final weatherState = container.read(weatherStateNotifierProvider);
 
-    expect(weatherState, isNotNull);
-
     expect(
       weatherState,
       WeatherForecast(
