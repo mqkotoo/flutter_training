@@ -9,16 +9,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
+import '../utils/dummy_data.dart';
 import 'weather_service_test.mocks.dart';
-
-const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
 
 final request = WeatherRequest(
   area: 'Nagoya',
@@ -42,7 +34,7 @@ void main() {
   });
 
   test('success case', () {
-    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
+    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
 
     final result = container.read(weatherServiceProvider).fetchWeather(request);
 
@@ -55,7 +47,7 @@ void main() {
           weatherCondition: WeatherCondition.cloudy,
           maxTemperature: 25,
           minTemperature: 7,
-          date: DateTime(2023, 9, 19),
+          date: DateTime(2023, 9, 19, 10, 24, 31, 877),
         ),
       ),
     );
