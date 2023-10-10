@@ -238,5 +238,47 @@ void main() {
 
       teardownDeviceSize(tester);
     });
+
+    // unknown
+    testWidgets(
+        'when fetchWeather() return failure with unknown error, '
+        'error dialog and correct message should be visible. ', (tester) async {
+      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+      setDisplayVertical(tester: tester);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.unknown),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.unknown),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.unknown),
+        findsNothing,
+      );
+
+      teardownDeviceSize(tester);
+    });
   });
 }
