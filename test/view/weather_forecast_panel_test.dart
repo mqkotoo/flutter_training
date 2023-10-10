@@ -27,11 +27,11 @@ void main() {
 
     // 気温のテキストの色を取得
     final minTemp =
-    tester.firstWidget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
+        tester.firstWidget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
     final minTempColor = minTemp.style!.color;
 
     final maxTemp =
-    tester.firstWidget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
+        tester.firstWidget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
     final maxTempColor = maxTemp.style!.color;
 
     expect(find.byType(Placeholder), findsOneWidget);
@@ -130,6 +130,42 @@ void main() {
 
       expect(find.text('30 ℃'), findsOneWidget);
       expect(find.text('0 ℃'), findsOneWidget);
+
+      teardownDeviceSize(tester);
+    });
+
+    // rainy
+    testWidgets(
+        'when reload button is pressed, '
+        'rainy weather and correct temperature should be displayed.',
+        (tester) async {
+      when(mockClient.fetchWeather(any)).thenReturn(rainyWeatherJsonData);
+      setDisplayVertical(tester: tester);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+
+      expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
+
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
+
+      expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
+
+      expect(find.bySemanticsLabel('Rainy image'), findsOneWidget);
+
+      expect(find.text('44 ℃'), findsOneWidget);
+      expect(find.text('-22 ℃'), findsOneWidget);
 
       teardownDeviceSize(tester);
     });
