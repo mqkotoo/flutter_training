@@ -50,6 +50,7 @@ void main() {
   });
 
   group('after getting the weather', () {
+    // cloudy
     testWidgets(
         'when reload button is pressed, '
         'cloudy weather and correct temperature should be displayed.',
@@ -78,11 +79,13 @@ void main() {
       final maxTempColor = maxTemp.style!.color;
 
       expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
 
       await tester.tap(find.byKey(WeatherPage.reloadButton));
       await tester.pump();
 
       expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
 
       expect(find.bySemanticsLabel('Cloudy image'), findsOneWidget);
 
