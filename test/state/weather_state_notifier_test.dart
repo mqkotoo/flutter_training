@@ -101,7 +101,7 @@ void main() {
       expect(errorMessage, ErrorMessage.invalidParameter);
     });
 
-    test('fromJson error case', () {
+    test('fromJson error case: CheckedFromJsonException should be thrown.', () {
       const invalidJsonDataForCheckedFromJsonException = '''
         {
           "weather_condition": "thunder",
