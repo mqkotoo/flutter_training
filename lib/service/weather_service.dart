@@ -9,12 +9,12 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 part 'weather_service.g.dart';
 
-@riverpod
+@Riverpod(dependencies: [])
 YumemiWeather yumemiWeatherClient(YumemiWeatherClientRef ref) {
   return YumemiWeather();
 }
 
-@riverpod
+@Riverpod(dependencies: [yumemiWeatherClient])
 WeatherService weatherService(WeatherServiceRef ref) {
   return WeatherService(ref.watch(yumemiWeatherClientProvider));
 }
