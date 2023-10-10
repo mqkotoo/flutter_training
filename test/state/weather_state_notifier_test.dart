@@ -5,6 +5,7 @@ import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/state/weather_state_notifier.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -75,7 +76,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '予期せぬエラーが発生しました。');
+      expect(errorMessage, ErrorMessage.unknown);
     });
 
     test('invalidParameter error case', () {
@@ -97,7 +98,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, 'パラメータが有効ではありません。');
+      expect(errorMessage, ErrorMessage.invalidParameter);
     });
 
     test('fromJson error case', () {
@@ -128,7 +129,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '不適切なデータを取得しました。');
+      expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
 
     test('jsonDecode() error case', () {
@@ -144,15 +145,15 @@ void main() {
       container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
-          errorMessage = e;
-        },
-      );
+              errorMessage = e;
+            },
+          );
 
       final weatherState = container.read(weatherStateNotifierProvider);
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '不適切なデータを取得しました。');
+      expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
   });
 }

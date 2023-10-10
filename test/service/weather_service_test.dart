@@ -5,6 +5,7 @@ import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -64,9 +65,9 @@ void main() {
       expect(
         result,
         isA<Failure<WeatherForecast, String>>().having(
-          (error) => error.exception,
+              (error) => error.exception,
           'error message',
-          'パラメータが有効ではありません。',
+          ErrorMessage.invalidParameter,
         ),
       );
     });
@@ -80,9 +81,9 @@ void main() {
       expect(
         result,
         isA<Failure<WeatherForecast, String>>().having(
-          (error) => error.exception,
+              (error) => error.exception,
           'error message',
-          '予期せぬエラーが発生しました。',
+          ErrorMessage.unknown,
         ),
       );
     });

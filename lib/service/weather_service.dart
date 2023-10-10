@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/utils/api/result.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -39,14 +40,18 @@ class WeatherService {
     } on YumemiWeatherError catch (e) {
       return switch (e) {
         YumemiWeatherError.invalidParameter =>
-          const Failure<WeatherForecast, String>('パラメータが有効ではありません。'),
+          const Failure<WeatherForecast, String>(ErrorMessage.invalidParameter),
         YumemiWeatherError.unknown =>
-          const Failure<WeatherForecast, String>('予期せぬエラーが発生しました。')
+          const Failure<WeatherForecast, String>(ErrorMessage.unknown)
       };
     } on CheckedFromJsonException catch (_) {
-      return const Failure<WeatherForecast, String>('不適切なデータを取得しました。');
+      return const Failure<WeatherForecast, String>(
+        ErrorMessage.receiveInvalidData,
+      );
     } on FormatException catch (_) {
-      return const Failure<WeatherForecast, String>('不適切なデータを取得しました。');
+      return const Failure<WeatherForecast, String>(
+        ErrorMessage.receiveInvalidData,
+      );
     }
   }
 }
