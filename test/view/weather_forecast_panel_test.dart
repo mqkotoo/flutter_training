@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast_panel.dart';
 import 'package:flutter_training/view/weather_view/weather_page.dart';
@@ -87,7 +88,10 @@ void main() {
       expect(find.byType(Placeholder), findsNothing);
       expect(find.text('** ℃'), findsNothing);
 
-      expect(find.bySemanticsLabel('Cloudy image'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.cloudyLabel),
+        findsOneWidget,
+      );
 
       expect(find.text('25 ℃'), findsOneWidget);
       expect(find.text('7 ℃'), findsOneWidget);
@@ -126,7 +130,10 @@ void main() {
       expect(find.byType(Placeholder), findsNothing);
       expect(find.text('** ℃'), findsNothing);
 
-      expect(find.bySemanticsLabel('Sunny image'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.sunnyLabel),
+        findsOneWidget,
+      );
 
       expect(find.text('30 ℃'), findsOneWidget);
       expect(find.text('0 ℃'), findsOneWidget);
@@ -162,7 +169,10 @@ void main() {
       expect(find.byType(Placeholder), findsNothing);
       expect(find.text('** ℃'), findsNothing);
 
-      expect(find.bySemanticsLabel('Rainy image'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.rainyLabel),
+        findsOneWidget,
+      );
 
       expect(find.text('44 ℃'), findsOneWidget);
       expect(find.text('-22 ℃'), findsOneWidget);
