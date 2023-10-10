@@ -97,5 +97,41 @@ void main() {
 
       teardownDeviceSize(tester);
     });
+
+    // sunny
+    testWidgets(
+        'when reload button is pressed, '
+        'sunny weather and correct temperature should be displayed.',
+        (tester) async {
+      when(mockClient.fetchWeather(any)).thenReturn(sunnyWeatherJsonData);
+      setDisplayVertical(tester: tester);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+
+      expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
+
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
+
+      expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
+
+      expect(find.bySemanticsLabel('Sunny image'), findsOneWidget);
+
+      expect(find.text('30 ℃'), findsOneWidget);
+      expect(find.text('0 ℃'), findsOneWidget);
+
+      teardownDeviceSize(tester);
+    });
   });
 }
