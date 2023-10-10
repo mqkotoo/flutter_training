@@ -9,27 +9,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
+import '../utils/dummy_data.dart';
 import 'weather_state_notifier_test.mocks.dart';
-
-const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
-
-const invalidJsonDataForFromJsonException = '''
-        {
-          "weather_condition": "thunder",
-          "max_temperature": 25.0, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
-
-const invalidJsonDataForFormatException = '{invalid json data}';
 
 final request = WeatherRequest(
   area: 'Nagoya',
@@ -53,7 +34,7 @@ void main() {
   });
 
   test('success case: getWeather()', () {
-    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
+    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
 
     //　天気の取得処理を実行して、結果をstateに流す
     container
@@ -70,7 +51,7 @@ void main() {
         weatherCondition: WeatherCondition.cloudy,
         maxTemperature: 25,
         minTemperature: 7,
-        date: DateTime(2023, 9, 19),
+        date: DateTime(2023, 9, 19, 10, 24, 31, 877),
       ),
     );
   });
@@ -120,8 +101,17 @@ void main() {
     });
 
     test('fromJson error case', () {
+      const invalidJsonDataForCheckedFromJsonException = '''
+        {
+          "weather_condition": "thunder",
+          "max_temperature": 25.0, 
+          "min_temperature": 7,
+          "date": "2023-09-19T00:00:00.000"
+        }
+        ''';
+
       when(mockClient.fetchWeather(any))
-          .thenReturn(invalidJsonDataForFromJsonException);
+          .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
@@ -142,6 +132,8 @@ void main() {
     });
 
     test('jsonDecode() error case', () {
+      const invalidJsonDataForFormatException = '{invalid json data}';
+
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 
@@ -152,9 +144,9 @@ void main() {
       container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
-              errorMessage = e;
-            },
-          );
+          errorMessage = e;
+        },
+      );
 
       final weatherState = container.read(weatherStateNotifierProvider);
 
