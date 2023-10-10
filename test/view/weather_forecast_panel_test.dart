@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/service/weather_service.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast_panel.dart';
 import 'package:flutter_training/view/weather_view/weather_page.dart';
 import 'package:mockito/mockito.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
 
 import '../service/weather_service_test.mocks.dart';
 import '../utils/dummy_data.dart';
@@ -176,6 +178,63 @@ void main() {
 
       expect(find.text('44 ℃'), findsOneWidget);
       expect(find.text('-22 ℃'), findsOneWidget);
+
+      teardownDeviceSize(tester);
+    });
+  });
+
+  group('when an error occurs', () {
+    // invalidParameter
+    testWidgets(
+        'when fetchWeather() return failure with invalidParameter error, '
+        'error dialog and correct message should be visible. '
+        'Then the dialog is closed by pressing the ok button.', (tester) async {
+      when(mockClient.fetchWeather(any))
+          .thenThrow(YumemiWeatherError.invalidParameter);
+      setDisplayVertical(tester: tester);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.invalidParameter),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.invalidParameter),
+        findsOneWidget,
+      );
+
+      // ダイアログが、他の画面領域のタップで閉じないことを確認する
+      await tester.tapAt(
+        const Offset(5, 5),
+      );
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.invalidParameter),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.invalidParameter),
+        findsNothing,
+      );
 
       teardownDeviceSize(tester);
     });
