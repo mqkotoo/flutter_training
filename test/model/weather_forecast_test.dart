@@ -12,16 +12,18 @@ void main() {
     final data = jsonDecode(validJsonData) as Map<String, dynamic>;
     final result = WeatherForecast.fromJson(data);
 
-    expect(result.weatherCondition, WeatherCondition.cloudy);
-    expect(result.maxTemperature, 25);
-    expect(result.minTemperature, 7);
     expect(
-      result.date,
-      DateTime(2023, 9, 19, 10, 24, 31, 877),
+      result,
+      WeatherForecast(
+        weatherCondition: WeatherCondition.cloudy,
+        maxTemperature: 25,
+        minTemperature: 7,
+        date: DateTime(2023, 9, 19, 10, 24, 31, 877),
+      ),
     );
   });
 
-  group('failure case: fromJon', () {
+  group('fromJson failure: CheckedFromJsonException should be thrown.', () {
     test('non-exist weather', () {
       const jsonData = '''
         {
@@ -95,34 +97,5 @@ void main() {
         reason: 'min_temperature is required',
       );
     });
-  });
-
-  // jsonのデコードのテストも以下に書く
-  test('jsonDecode() success case', () {
-    const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19 10:24:31.877"
-        }
-        ''';
-
-    final decodedData = jsonDecode(jsonData) as Map<String, dynamic>;
-
-    expect(decodedData, isA<Map<String, dynamic>>());
-    expect(decodedData['weather_condition'], 'cloudy');
-    expect(decodedData['max_temperature'], 25);
-    expect(decodedData['min_temperature'], 7);
-    expect(decodedData['date'], '2023-09-19 10:24:31.877');
-  });
-
-  test('jsonDecode() failure case', () {
-    const jsonData = '{invalid json data}';
-
-    expect(
-      () => jsonDecode(jsonData) as Map<String, dynamic>,
-      throwsA(isA<FormatException>()),
-    );
   });
 }

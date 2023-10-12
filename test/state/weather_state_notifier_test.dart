@@ -23,14 +23,14 @@ void main() {
   final mockClient = MockYumemiWeather();
   late ProviderContainer container;
 
-  setUpAll(() {
+  setUp(() {
     //mockのYumemiWeatherでDIする
     container = ProviderContainer(
       overrides: [yumemiWeatherClientProvider.overrideWithValue(mockClient)],
     );
   });
 
-  tearDownAll(() {
+  tearDown(() {
     container.dispose();
   });
 
@@ -44,8 +44,6 @@ void main() {
 
     final weatherState = container.read(weatherStateNotifierProvider);
 
-    expect(weatherState, isNotNull);
-
     expect(
       weatherState,
       WeatherForecast(
@@ -58,7 +56,7 @@ void main() {
   });
 
   group('failure case: getWeather()', () {
-    test('unknown error case', () {
+    test('an unknown error is thrown', () {
       when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
 
       //　表示されるエラーメッセージを格納
@@ -79,7 +77,7 @@ void main() {
       expect(errorMessage, ErrorMessage.unknown);
     });
 
-    test('invalidParameter error case', () {
+    test('invalidParameter error is thrown', () {
       when(mockClient.fetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -123,7 +121,7 @@ void main() {
       expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
 
-    test('jsonDecode() error case', () {
+    test('received data is not in JSON format', () {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 
