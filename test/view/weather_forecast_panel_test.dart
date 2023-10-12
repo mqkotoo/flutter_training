@@ -264,5 +264,45 @@ void main() {
         findsNothing,
       );
     });
+
+    // CheckedFromJsonException
+    testWidgets(
+        'when fetchWeather() returns failure with CheckedFromJsonException, '
+        'error dialog and correct message should be visible. ', (tester) async {
+      when(mockClient.fetchWeather(any))
+          .thenReturn(invalidJsonDataForCheckedFromJsonException);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.receiveInvalidData),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.receiveInvalidData),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(
+        find.widgetWithText(AlertDialog, ErrorMessage.receiveInvalidData),
+        findsNothing,
+      );
+    });
   });
 }
