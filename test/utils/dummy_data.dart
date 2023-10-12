@@ -33,3 +33,14 @@ const rainyWeatherJsonData = '''
           "date": "2023-09-19 10:24:31.877"
         }
         ''';
+
+const invalidJsonDataForCheckedFromJsonException = '''
+        {
+          "weather_condition": "thunder",
+          "max_temperature": 25.0, 
+          "min_temperature": 7,
+          "date": "2023-09-19T00:00:00.000"
+        }
+        ''';
+
+const invalidJsonDataForFormatException = '{invalid json data}';

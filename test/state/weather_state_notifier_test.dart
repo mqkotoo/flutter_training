@@ -102,15 +102,6 @@ void main() {
     });
 
     test('fromJson error case: CheckedFromJsonException should be thrown.', () {
-      const invalidJsonDataForCheckedFromJsonException = '''
-        {
-          "weather_condition": "thunder",
-          "max_temperature": 25.0, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
-
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
@@ -133,8 +124,6 @@ void main() {
     });
 
     test('jsonDecode() error case', () {
-      const invalidJsonDataForFormatException = '{invalid json data}';
-
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 
