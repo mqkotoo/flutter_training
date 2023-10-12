@@ -13,7 +13,6 @@ dependencies:
   flutter_riverpod: ^2.4.0
   flutter_svg: ^2.0.7
 
-  flutter_svg_test: ^1.0.0
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   mockito: ^5.4.2
