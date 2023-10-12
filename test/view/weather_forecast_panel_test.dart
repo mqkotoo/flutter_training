@@ -15,8 +15,8 @@ import '../utils/dummy_data.dart';
 import '../utils/utils.dart';
 
 void main() {
-  setUpAll(setDisplayVertical);
-  tearDownAll(teardownDeviceSize);
+  setUp(setDisplayVertical);
+  tearDown(teardownDeviceSize);
 
   final mockClient = MockYumemiWeather();
 
