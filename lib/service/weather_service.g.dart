@@ -9,7 +9,7 @@ part of 'weather_service.dart';
 // **************************************************************************
 
 String _$yumemiWeatherClientHash() =>
-    r'e40a0489f105c552873993d37c21849839ab751f';
+    r'38eba946f0af47492e5740938eeccfd96ff4600a';
 
 /// See also [yumemiWeatherClient].
 @ProviderFor(yumemiWeatherClient)
@@ -19,13 +19,13 @@ final yumemiWeatherClientProvider = AutoDisposeProvider<YumemiWeather>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$yumemiWeatherClientHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: const <ProviderOrFamily>[],
+  allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
 typedef YumemiWeatherClientRef = AutoDisposeProviderRef<YumemiWeather>;
 
-String _$weatherServiceHash() => r'36602ea8afd766fe0d1f565dda41a18117d1db1b';
+String _$weatherServiceHash() => r'0788d6f27a695455d6dcf3b0b46f0df60ce1dc7d';
 
 /// See also [weatherService].
 @ProviderFor(weatherService)
@@ -35,10 +35,31 @@ final weatherServiceProvider = AutoDisposeProvider<WeatherService>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$weatherServiceHash,
+  dependencies: <ProviderOrFamily>[yumemiWeatherClientProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    yumemiWeatherClientProvider,
+    ...?yumemiWeatherClientProvider.allTransitiveDependencies
+  },
+);
+
+typedef WeatherServiceRef = AutoDisposeProviderRef<WeatherService>;
+
+String _$loadingStateNotifierHash() =>
+    r'6c22092104ce7a9a407ef4f8ea50dd23369cd34f';
+
+/// See also [LoadingStateNotifier].
+@ProviderFor(LoadingStateNotifier)
+final loadingStateNotifierProvider =
+    AutoDisposeNotifierProvider<LoadingStateNotifier, bool>.internal(
+  LoadingStateNotifier.new,
+  name: r'loadingStateNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$loadingStateNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef WeatherServiceRef = AutoDisposeProviderRef<WeatherService>;
+typedef _$LoadingStateNotifier = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
