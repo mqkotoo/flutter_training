@@ -21,6 +21,16 @@ WeatherService weatherService(WeatherServiceRef ref) {
   return WeatherService(ref.watch(yumemiWeatherClientProvider));
 }
 
+@riverpod
+class LoadingStateNotifier extends _$LoadingStateNotifier {
+  @override
+  bool build() => false;
+
+  void show() => state = true;
+
+  void hide() => state = false;
+}
+
 class WeatherService {
   WeatherService(this._client);
 
