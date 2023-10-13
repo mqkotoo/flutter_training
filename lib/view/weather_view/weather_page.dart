@@ -12,8 +12,6 @@ class WeatherPage extends ConsumerWidget {
   static final closeButtonKey = UniqueKey();
   @visibleForTesting
   static final reloadButton = UniqueKey();
-  @visibleForTesting
-  static final circularProgressIndicatorKey = UniqueKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,12 +77,10 @@ class WeatherPage extends ConsumerWidget {
         ),
         // ローディングを表示
         if (isLoading)
-          ColoredBox(
+          const ColoredBox(
             color: Colors.black26,
             child: Center(
-              child: CircularProgressIndicator(
-                key: circularProgressIndicatorKey,
-              ),
+              child: CircularProgressIndicator(),
             ),
           ),
       ],
