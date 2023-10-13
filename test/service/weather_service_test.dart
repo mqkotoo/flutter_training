@@ -34,10 +34,11 @@ void main() {
     container.dispose();
   });
 
-  test('success case', () {
-    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
+  test('success case', () async {
+    when(mockClient.syncFetchWeather(any)).thenReturn(validJsonData);
 
-    final result = container.read(weatherServiceProvider).fetchWeather(request);
+    final result =
+        await container.read(weatherServiceProvider).fetchWeather(request);
 
     expect(
       result,
@@ -55,12 +56,12 @@ void main() {
   });
 
   group('failure case', () {
-    test('invalidParameter error is thrown', () {
-      when(mockClient.fetchWeather(any))
+    test('invalidParameter error is thrown', () async {
+      when(mockClient.syncFetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
       final result =
-          container.read(weatherServiceProvider).fetchWeather(request);
+          await container.read(weatherServiceProvider).fetchWeather(request);
 
       expect(
         result,
@@ -72,11 +73,12 @@ void main() {
       );
     });
 
-    test('unknown error is thrown', () {
-      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+    test('unknown error is thrown', () async {
+      when(mockClient.syncFetchWeather(any))
+          .thenThrow(YumemiWeatherError.unknown);
 
       final result =
-          container.read(weatherServiceProvider).fetchWeather(request);
+          await container.read(weatherServiceProvider).fetchWeather(request);
 
       expect(
         result,
