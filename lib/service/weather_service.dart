@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/utils/api/result.dart';
@@ -35,7 +36,7 @@ class WeatherService {
   ) async {
     try {
       final jsonData = jsonEncode(request);
-      final resultJson = _client.syncFetchWeather(jsonData);
+      final resultJson = await compute(_client.syncFetchWeather, jsonData);
       final weatherData = jsonDecode(resultJson) as Map<String, dynamic>;
       final result = WeatherForecast.fromJson(weatherData);
       return Success<WeatherForecast, String>(result);
