@@ -11,11 +11,12 @@ class WeatherStateNotifier extends _$WeatherStateNotifier {
   @override
   WeatherForecast? build() => null;
 
-  void getWeather({
+  Future<void> getWeather({
     required WeatherRequest request,
     required void Function(String error) onError,
-  }) {
-    return switch (ref.read(weatherServiceProvider).fetchWeather(request)) {
+  }) async {
+    return switch (
+        await ref.read(weatherServiceProvider).fetchWeather(request)) {
       Success(value: final value) => state = value,
       Failure(exception: final error) => onError.call(error),
     };
