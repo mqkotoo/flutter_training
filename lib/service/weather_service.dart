@@ -30,10 +30,12 @@ class WeatherService {
   /// If successful, the value is stored in [Success],
   /// if unsuccessful, the error message is stored in [Failure].
 
-  Result<WeatherForecast, String> fetchWeather(WeatherRequest request) {
+  Future<Result<WeatherForecast, String>> fetchWeather(
+    WeatherRequest request,
+  ) async {
     try {
       final jsonData = jsonEncode(request);
-      final resultJson = _client.fetchWeather(jsonData);
+      final resultJson = _client.syncFetchWeather(jsonData);
       final weatherData = jsonDecode(resultJson) as Map<String, dynamic>;
       final result = WeatherForecast.fromJson(weatherData);
       return Success<WeatherForecast, String>(result);
