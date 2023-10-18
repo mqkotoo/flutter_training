@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
 //初期状態は横画面判定になっているので縦画面に設定する
-void setDisplayVertical({
+void setDisplaySize({
   Size size = const Size(390, 844),
 }) {
   binding.platformDispatcher.implicitView!.physicalSize = size;
@@ -13,7 +13,7 @@ void setDisplayVertical({
 }
 
 //デバイスサイズ設定の破棄
-void teardownDeviceSize() {
+void teardownDisplaySize() {
   binding.platformDispatcher.implicitView!.resetPhysicalSize();
   binding.platformDispatcher.implicitView!.resetDevicePixelRatio();
 }
