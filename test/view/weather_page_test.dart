@@ -32,11 +32,11 @@ void main() {
 
     // 気温のテキストの色を取得
     final minTemp =
-    tester.widget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
     final minTempColor = minTemp.style!.color;
 
     final maxTemp =
-    tester.widget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
     final maxTempColor = maxTemp.style!.color;
 
     expect(find.byType(Placeholder), findsOneWidget);
@@ -56,118 +56,118 @@ void main() {
     // cloudy
     testWidgets(
         'when reload button is pressed, '
-            'cloudy weather and correct temperature should be displayed.',
-            (tester) async {
-          when(mockClient.fetchWeather(any)).thenReturn(cloudyWeatherJsonData);
+        'cloudy weather and correct temperature should be displayed.',
+        (tester) async {
+      when(mockClient.fetchWeather(any)).thenReturn(cloudyWeatherJsonData);
 
-          await tester.pumpWidget(
-            ProviderScope(
-              overrides: [
-                yumemiWeatherClientProvider.overrideWithValue(mockClient)
-              ],
-              child: const MaterialApp(
-                home: WeatherPage(),
-              ),
-            ),
-          );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
 
-          expect(find.byType(Placeholder), findsOneWidget);
-          expect(find.text('** ℃'), findsNWidgets(2));
+      expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
 
-          await tester.tap(find.byKey(WeatherPage.reloadButton));
-          await tester.pump();
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
 
-          expect(find.byType(Placeholder), findsNothing);
-          expect(find.text('** ℃'), findsNothing);
+      expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
 
-          expect(
-            find.bySemanticsLabel(WeatherSvgImage.cloudyLabel),
-            findsOneWidget,
-          );
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.cloudyLabel),
+        findsOneWidget,
+      );
 
-          expect(find.text('25 ℃'), findsOneWidget);
-          expect(find.text('7 ℃'), findsOneWidget);
-        });
+      expect(find.text('25 ℃'), findsOneWidget);
+      expect(find.text('7 ℃'), findsOneWidget);
+    });
 
     // sunny
     testWidgets(
         'when reload button is pressed, '
-            'sunny weather and correct temperature should be displayed.',
-            (tester) async {
-          when(mockClient.fetchWeather(any)).thenReturn(sunnyWeatherJsonData);
+        'sunny weather and correct temperature should be displayed.',
+        (tester) async {
+      when(mockClient.fetchWeather(any)).thenReturn(sunnyWeatherJsonData);
 
-          await tester.pumpWidget(
-            ProviderScope(
-              overrides: [
-                yumemiWeatherClientProvider.overrideWithValue(mockClient)
-              ],
-              child: const MaterialApp(
-                home: WeatherPage(),
-              ),
-            ),
-          );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
 
-          expect(find.byType(Placeholder), findsOneWidget);
-          expect(find.text('** ℃'), findsNWidgets(2));
+      expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
 
-          await tester.tap(find.byKey(WeatherPage.reloadButton));
-          await tester.pump();
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
 
-          expect(find.byType(Placeholder), findsNothing);
-          expect(find.text('** ℃'), findsNothing);
+      expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
 
-          expect(
-            find.bySemanticsLabel(WeatherSvgImage.sunnyLabel),
-            findsOneWidget,
-          );
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.sunnyLabel),
+        findsOneWidget,
+      );
 
-          expect(find.text('30 ℃'), findsOneWidget);
-          expect(find.text('0 ℃'), findsOneWidget);
-        });
+      expect(find.text('30 ℃'), findsOneWidget);
+      expect(find.text('0 ℃'), findsOneWidget);
+    });
 
     // rainy
     testWidgets(
         'when reload button is pressed, '
-            'rainy weather and correct temperature should be displayed.',
-            (tester) async {
-          when(mockClient.fetchWeather(any)).thenReturn(rainyWeatherJsonData);
+        'rainy weather and correct temperature should be displayed.',
+        (tester) async {
+      when(mockClient.fetchWeather(any)).thenReturn(rainyWeatherJsonData);
 
-          await tester.pumpWidget(
-            ProviderScope(
-              overrides: [
-                yumemiWeatherClientProvider.overrideWithValue(mockClient)
-              ],
-              child: const MaterialApp(
-                home: WeatherPage(),
-              ),
-            ),
-          );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            yumemiWeatherClientProvider.overrideWithValue(mockClient)
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
 
-          expect(find.byType(Placeholder), findsOneWidget);
-          expect(find.text('** ℃'), findsNWidgets(2));
+      expect(find.byType(Placeholder), findsOneWidget);
+      expect(find.text('** ℃'), findsNWidgets(2));
 
-          await tester.tap(find.byKey(WeatherPage.reloadButton));
-          await tester.pump();
+      await tester.tap(find.byKey(WeatherPage.reloadButton));
+      await tester.pump();
 
-          expect(find.byType(Placeholder), findsNothing);
-          expect(find.text('** ℃'), findsNothing);
+      expect(find.byType(Placeholder), findsNothing);
+      expect(find.text('** ℃'), findsNothing);
 
-          expect(
-            find.bySemanticsLabel(WeatherSvgImage.rainyLabel),
-            findsOneWidget,
-          );
+      expect(
+        find.bySemanticsLabel(WeatherSvgImage.rainyLabel),
+        findsOneWidget,
+      );
 
-          expect(find.text('44 ℃'), findsOneWidget);
-          expect(find.text('-22 ℃'), findsOneWidget);
-        });
+      expect(find.text('44 ℃'), findsOneWidget);
+      expect(find.text('-22 ℃'), findsOneWidget);
+    });
   });
 
   group('when an error occurs', () {
     // invalidParameter
     testWidgets(
         'when fetchWeather() returns failure with invalidParameter error, '
-            'error dialog and correct message should be visible. '
-            'Then the dialog is closed by pressing the ok button.', (tester) async {
+        'error dialog and correct message should be visible. '
+        'Then the dialog is closed by pressing the ok button.', (tester) async {
       when(mockClient.fetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -218,7 +218,7 @@ void main() {
     // unknown
     testWidgets(
         'when fetchWeather() returns failure with unknown error, '
-            'error dialog and correct message should be visible. ', (tester) async {
+        'error dialog and correct message should be visible. ', (tester) async {
       when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
 
       await tester.pumpWidget(
@@ -257,7 +257,7 @@ void main() {
     // CheckedFromJsonException
     testWidgets(
         'when fetchWeather() returns failure with CheckedFromJsonException, '
-            'error dialog and correct message should be visible. ', (tester) async {
+        'error dialog and correct message should be visible. ', (tester) async {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
@@ -297,7 +297,7 @@ void main() {
     // FormatException
     testWidgets(
         'when fetchWeather() returns failure with FormatException, '
-            'error dialog and correct message should be visible. ', (tester) async {
+        'error dialog and correct message should be visible. ', (tester) async {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 
