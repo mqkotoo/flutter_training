@@ -81,7 +81,7 @@ void main() {
       expect(
         result,
         isA<Failure<WeatherForecast, String>>().having(
-              (error) => error.exception,
+          (error) => error.exception,
           'error message',
           ErrorMessage.unknown,
         ),
