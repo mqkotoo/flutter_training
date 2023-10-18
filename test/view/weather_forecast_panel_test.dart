@@ -31,11 +31,11 @@ void main() {
 
     // 気温のテキストの色を取得
     final minTemp =
-        tester.firstWidget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
     final minTempColor = minTemp.style!.color;
 
     final maxTemp =
-        tester.firstWidget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
     final maxTempColor = maxTemp.style!.color;
 
     expect(find.byType(Placeholder), findsOneWidget);
