@@ -5,17 +5,11 @@ import 'package:flutter_training/model/weather_condition.dart';
 import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../utils/dummy_data.dart';
+
 void main() {
   test('success case: fromJson', () {
-    const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19 10:24:31.877"
-        }
-        ''';
-    final data = jsonDecode(jsonData) as Map<String, dynamic>;
+    final data = jsonDecode(validJsonData) as Map<String, dynamic>;
     final result = WeatherForecast.fromJson(data);
 
     expect(

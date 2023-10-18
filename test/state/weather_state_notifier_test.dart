@@ -5,31 +5,13 @@ import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/state/weather_state_notifier.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
+import '../utils/dummy_data.dart';
 import 'weather_state_notifier_test.mocks.dart';
-
-const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
-
-const invalidJsonDataForCheckedFromJsonException = '''
-        {
-          "weather_condition": "thunder",
-          "max_temperature": 25.0, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
-
-const invalidJsonDataForFormatException = '{invalid json data}';
 
 final request = WeatherRequest(
   area: 'Nagoya',
@@ -53,7 +35,7 @@ void main() {
   });
 
   test('success case: getWeather()', () {
-    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
+    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
 
     //　天気の取得処理を実行して、結果をstateに流す
     container
@@ -68,7 +50,7 @@ void main() {
         weatherCondition: WeatherCondition.cloudy,
         maxTemperature: 25,
         minTemperature: 7,
-        date: DateTime(2023, 9, 19),
+        date: DateTime(2023, 9, 19, 10, 24, 31, 877),
       ),
     );
   });
@@ -92,7 +74,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '予期せぬエラーが発生しました。');
+      expect(errorMessage, ErrorMessage.unknown);
     });
 
     test('invalidParameter error is thrown', () {
@@ -114,10 +96,10 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, 'パラメータが有効ではありません。');
+      expect(errorMessage, ErrorMessage.invalidParameter);
     });
 
-    test('CheckedFromJsonException error is thrown', () {
+    test('fromJson error case: CheckedFromJsonException should be thrown.', () {
       when(mockClient.fetchWeather(any))
           .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
@@ -136,7 +118,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '不適切なデータを取得しました。');
+      expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
 
     test('received data is not in JSON format', () {
@@ -158,7 +140,7 @@ void main() {
 
       //取得はできてない
       expect(weatherState, null);
-      expect(errorMessage, '不適切なデータを取得しました。');
+      expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
   });
 }

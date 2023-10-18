@@ -5,20 +5,13 @@ import 'package:flutter_training/model/weather_forecast.dart';
 import 'package:flutter_training/model/weather_request.dart';
 import 'package:flutter_training/service/weather_service.dart';
 import 'package:flutter_training/utils/api/result.dart';
+import 'package:flutter_training/utils/error/error_message.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
+import '../utils/dummy_data.dart';
 import 'weather_service_test.mocks.dart';
-
-const jsonData = '''
-        {
-          "weather_condition": "cloudy",
-          "max_temperature": 25, 
-          "min_temperature": 7,
-          "date": "2023-09-19T00:00:00.000"
-        }
-        ''';
 
 final request = WeatherRequest(
   area: 'Nagoya',
@@ -42,7 +35,7 @@ void main() {
   });
 
   test('success case', () {
-    when(mockClient.fetchWeather(any)).thenReturn(jsonData);
+    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
 
     final result = container.read(weatherServiceProvider).fetchWeather(request);
 
@@ -55,7 +48,7 @@ void main() {
           weatherCondition: WeatherCondition.cloudy,
           maxTemperature: 25,
           minTemperature: 7,
-          date: DateTime(2023, 9, 19),
+          date: DateTime(2023, 9, 19, 10, 24, 31, 877),
         ),
       ),
     );
@@ -74,7 +67,7 @@ void main() {
         isA<Failure<WeatherForecast, String>>().having(
           (error) => error.exception,
           'error message',
-          'パラメータが有効ではありません。',
+          ErrorMessage.invalidParameter,
         ),
       );
     });
@@ -90,7 +83,7 @@ void main() {
         isA<Failure<WeatherForecast, String>>().having(
           (error) => error.exception,
           'error message',
-          '予期せぬエラーが発生しました。',
+          ErrorMessage.unknown,
         ),
       );
     });

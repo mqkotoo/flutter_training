@@ -7,6 +7,11 @@ import 'package:flutter_training/view/weather_view/component/weather_forecast_pa
 class WeatherPage extends ConsumerWidget {
   const WeatherPage({super.key});
 
+  @visibleForTesting
+  static final closeButtonKey = UniqueKey();
+  @visibleForTesting
+  static final reloadButton = UniqueKey();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void onReloaded(WeatherRequest request) {
@@ -36,8 +41,9 @@ class WeatherPage extends ConsumerWidget {
                       children: [
                         Expanded(
                           child: TextButton(
-                            child: const Text('Close'),
                             onPressed: () => Navigator.pop(context),
+                            key: closeButtonKey,
+                            child: const Text('Close'),
                           ),
                         ),
                         Expanded(
@@ -50,6 +56,7 @@ class WeatherPage extends ConsumerWidget {
                                 ),
                               );
                             },
+                            key: reloadButton,
                             child: const Text('Reload'),
                           ),
                         ),

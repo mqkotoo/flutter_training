@@ -6,6 +6,11 @@ import 'package:flutter_training/state/weather_state_notifier.dart';
 class WeatherForecastPanel extends ConsumerWidget {
   const WeatherForecastPanel({super.key});
 
+  @visibleForTesting
+  static final minTempKey = UniqueKey();
+  @visibleForTesting
+  static final maxTempKey = UniqueKey();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
@@ -28,6 +33,7 @@ class WeatherForecastPanel extends ConsumerWidget {
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.blue,
                 ),
+                key: minTempKey,
               ),
             ),
             Expanded(
@@ -37,6 +43,7 @@ class WeatherForecastPanel extends ConsumerWidget {
                 style: textTheme.labelLarge!.copyWith(
                   color: Colors.red,
                 ),
+                key: maxTempKey,
               ),
             ),
           ],
