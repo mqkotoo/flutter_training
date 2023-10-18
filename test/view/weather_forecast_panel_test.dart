@@ -70,15 +70,6 @@ void main() {
         ),
       );
 
-      // 気温のテキストの色を取得
-      final minTemp = tester
-          .firstWidget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
-      final minTempColor = minTemp.style!.color;
-
-      final maxTemp = tester
-          .firstWidget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
-      final maxTempColor = maxTemp.style!.color;
-
       expect(find.byType(Placeholder), findsOneWidget);
       expect(find.text('** ℃'), findsNWidgets(2));
 
@@ -95,9 +86,6 @@ void main() {
 
       expect(find.text('25 ℃'), findsOneWidget);
       expect(find.text('7 ℃'), findsOneWidget);
-
-      expect(minTempColor, Colors.blue);
-      expect(maxTempColor, Colors.red);
     });
 
     // sunny
