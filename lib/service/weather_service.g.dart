@@ -9,7 +9,7 @@ part of 'weather_service.dart';
 // **************************************************************************
 
 String _$yumemiWeatherClientHash() =>
-    r'38eba946f0af47492e5740938eeccfd96ff4600a';
+    r'e40a0489f105c552873993d37c21849839ab751f';
 
 /// See also [yumemiWeatherClient].
 @ProviderFor(yumemiWeatherClient)
@@ -19,13 +19,13 @@ final yumemiWeatherClientProvider = AutoDisposeProvider<YumemiWeather>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$yumemiWeatherClientHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef YumemiWeatherClientRef = AutoDisposeProviderRef<YumemiWeather>;
 
-String _$weatherServiceHash() => r'0788d6f27a695455d6dcf3b0b46f0df60ce1dc7d';
+String _$weatherServiceHash() => r'41a00cbad069db0e4e14ae437ab2772c05c9916c';
 
 /// See also [weatherService].
 @ProviderFor(weatherService)
@@ -35,15 +35,11 @@ final weatherServiceProvider = AutoDisposeProvider<WeatherService>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$weatherServiceHash,
-  dependencies: <ProviderOrFamily>[yumemiWeatherClientProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    yumemiWeatherClientProvider,
-    ...?yumemiWeatherClientProvider.allTransitiveDependencies
-  },
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef WeatherServiceRef = AutoDisposeProviderRef<WeatherService>;
-
 String _$loadingStateNotifierHash() =>
     r'6c22092104ce7a9a407ef4f8ea50dd23369cd34f';
 
