@@ -15,8 +15,8 @@ class WeatherStateNotifier extends _$WeatherStateNotifier {
     required WeatherRequest request,
     required void Function(String error) onError,
   }) async {
-    return switch (
-        await ref.read(weatherServiceProvider).fetchWeather(request)) {
+    final result = await ref.read(weatherServiceProvider).fetchWeather(request);
+    return switch (result) {
       Success(value: final value) => state = value,
       Failure(exception: final error) => onError.call(error),
     };

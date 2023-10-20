@@ -9,7 +9,7 @@ part of 'weather_state_notifier.dart';
 // **************************************************************************
 
 String _$weatherStateNotifierHash() =>
-    r'0bcde01f798d9a931796db0bfd80a05d15d30f94';
+    r'e88bef24a896e2c767d10d38fcc26fd39cbeca27';
 
 /// See also [WeatherStateNotifier].
 @ProviderFor(WeatherStateNotifier)
