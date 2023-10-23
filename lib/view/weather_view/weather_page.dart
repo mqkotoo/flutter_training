@@ -78,7 +78,7 @@ class WeatherPage extends ConsumerWidget {
         // ローディングを表示
         if (isLoading)
           const ColoredBox(
-            color: Colors.black26,
+            color: Colors.black54,
             child: Center(
               child: CircularProgressIndicator(),
             ),
