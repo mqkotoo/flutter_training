@@ -58,7 +58,7 @@ void main() {
         'when reload button is pressed, '
         'cloudy weather and correct temperature should be displayed.',
         (tester) async {
-      when(mockClient.fetchWeather(any)).thenReturn(cloudyWeatherJsonData);
+      when(mockClient.syncFetchWeather(any)).thenReturn(cloudyWeatherJsonData);
 
       await tester.pumpWidget(
         ProviderScope(
@@ -94,7 +94,7 @@ void main() {
         'when reload button is pressed, '
         'sunny weather and correct temperature should be displayed.',
         (tester) async {
-      when(mockClient.fetchWeather(any)).thenReturn(sunnyWeatherJsonData);
+          when(mockClient.syncFetchWeather(any)).thenReturn(sunnyWeatherJsonData);
 
       await tester.pumpWidget(
         ProviderScope(
@@ -130,7 +130,7 @@ void main() {
         'when reload button is pressed, '
         'rainy weather and correct temperature should be displayed.',
         (tester) async {
-      when(mockClient.fetchWeather(any)).thenReturn(rainyWeatherJsonData);
+          when(mockClient.syncFetchWeather(any)).thenReturn(rainyWeatherJsonData);
 
       await tester.pumpWidget(
         ProviderScope(
@@ -168,7 +168,7 @@ void main() {
         'when fetchWeather() returns failure with invalidParameter error, '
         'error dialog and correct message should be visible. '
         'Then the dialog is closed by pressing the ok button.', (tester) async {
-      when(mockClient.fetchWeather(any))
+      when(mockClient.syncFetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
       await tester.pumpWidget(
@@ -219,7 +219,8 @@ void main() {
     testWidgets(
         'when fetchWeather() returns failure with unknown error, '
         'error dialog and correct message should be visible. ', (tester) async {
-      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+      when(mockClient.syncFetchWeather(any))
+          .thenThrow(YumemiWeatherError.unknown);
 
       await tester.pumpWidget(
         ProviderScope(
@@ -258,7 +259,7 @@ void main() {
     testWidgets(
         'when fetchWeather() returns failure with CheckedFromJsonException, '
         'error dialog and correct message should be visible. ', (tester) async {
-      when(mockClient.fetchWeather(any))
+      when(mockClient.syncFetchWeather(any))
           .thenReturn(invalidJsonDataForCheckedFromJsonException);
 
       await tester.pumpWidget(
@@ -298,7 +299,7 @@ void main() {
     testWidgets(
         'when fetchWeather() returns failure with FormatException, '
         'error dialog and correct message should be visible. ', (tester) async {
-      when(mockClient.fetchWeather(any))
+      when(mockClient.syncFetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
 
       await tester.pumpWidget(
