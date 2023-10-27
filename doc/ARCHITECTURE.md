@@ -61,6 +61,7 @@
 * 天気の情報、気温等を表示しているコンポネント。
 * `weatherStateNotifierProvider`をwatchして、天気の状態を表示する。
 
+## Providerの依存関係
 ```mermaid
 flowchart TB
   subgraph Arrows
@@ -82,12 +83,15 @@ flowchart TB
   end
 
   weatherStateNotifierProvider[["weatherStateNotifierProvider"]];
+  loadingStateNotifierProvider[["loadingStateNotifierProvider"]];
   weatherServiceProvider[["weatherServiceProvider"]];
   yumemiWeatherClientProvider[["yumemiWeatherClientProvider"]];
   WeatherForecastPanel((WeatherForecastPanel));
   WeatherPage((WeatherPage));
 
   weatherStateNotifierProvider ==> WeatherForecastPanel;
+  loadingStateNotifierProvider ==> WeatherPage;
   weatherStateNotifierProvider -.-> WeatherPage;
   yumemiWeatherClientProvider ==> weatherServiceProvider;
+
 ```
