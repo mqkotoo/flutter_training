@@ -18,24 +18,13 @@ YumemiWeather yumemiWeatherClient(YumemiWeatherClientRef ref) {
 
 @riverpod
 WeatherService weatherService(WeatherServiceRef ref) {
-  return WeatherService(ref.watch(yumemiWeatherClientProvider), ref);
-}
-
-@riverpod
-class LoadingStateNotifier extends _$LoadingStateNotifier {
-  @override
-  bool build() => false;
-
-  void show() => state = true;
-
-  void hide() => state = false;
+  return WeatherService(ref.watch(yumemiWeatherClientProvider));
 }
 
 class WeatherService {
-  WeatherService(this._client, this._ref);
+  WeatherService(this._client);
 
   final YumemiWeather _client;
-  final AutoDisposeProviderRef<WeatherService> _ref;
 
   /// Get weather information
   ///
@@ -46,15 +35,12 @@ class WeatherService {
     WeatherRequest request,
   ) async {
     try {
-      _ref.read(loadingStateNotifierProvider.notifier).show();
       final jsonData = jsonEncode(request);
       final resultJson = await compute(_client.syncFetchWeather, jsonData);
       final weatherData = jsonDecode(resultJson) as Map<String, dynamic>;
       final result = WeatherForecast.fromJson(weatherData);
-      _ref.read(loadingStateNotifierProvider.notifier).hide();
       return Success<WeatherForecast, String>(result);
     } on YumemiWeatherError catch (e) {
-      _ref.read(loadingStateNotifierProvider.notifier).hide();
       return switch (e) {
         YumemiWeatherError.invalidParameter =>
           const Failure<WeatherForecast, String>(ErrorMessage.invalidParameter),
@@ -62,12 +48,10 @@ class WeatherService {
           const Failure<WeatherForecast, String>(ErrorMessage.unknown)
       };
     } on CheckedFromJsonException catch (_) {
-      _ref.read(loadingStateNotifierProvider.notifier).hide();
       return const Failure<WeatherForecast, String>(
         ErrorMessage.receiveInvalidData,
       );
     } on FormatException catch (_) {
-      _ref.read(loadingStateNotifierProvider.notifier).hide();
       return const Failure<WeatherForecast, String>(
         ErrorMessage.receiveInvalidData,
       );

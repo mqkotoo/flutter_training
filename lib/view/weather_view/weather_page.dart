@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_request.dart';
-import 'package:flutter_training/service/weather_service.dart';
+import 'package:flutter_training/state/loading_state_notifier.dart';
 import 'package:flutter_training/state/weather_state_notifier.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast_panel.dart';
 

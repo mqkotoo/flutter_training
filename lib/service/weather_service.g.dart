@@ -24,8 +24,7 @@ final yumemiWeatherClientProvider = AutoDisposeProvider<YumemiWeather>.internal(
 );
 
 typedef YumemiWeatherClientRef = AutoDisposeProviderRef<YumemiWeather>;
-
-String _$weatherServiceHash() => r'41a00cbad069db0e4e14ae437ab2772c05c9916c';
+String _$weatherServiceHash() => r'36602ea8afd766fe0d1f565dda41a18117d1db1b';
 
 /// See also [weatherService].
 @ProviderFor(weatherService)
@@ -40,22 +39,5 @@ final weatherServiceProvider = AutoDisposeProvider<WeatherService>.internal(
 );
 
 typedef WeatherServiceRef = AutoDisposeProviderRef<WeatherService>;
-String _$loadingStateNotifierHash() =>
-    r'6c22092104ce7a9a407ef4f8ea50dd23369cd34f';
-
-/// See also [LoadingStateNotifier].
-@ProviderFor(LoadingStateNotifier)
-final loadingStateNotifierProvider =
-    AutoDisposeNotifierProvider<LoadingStateNotifier, bool>.internal(
-  LoadingStateNotifier.new,
-  name: r'loadingStateNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$loadingStateNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$LoadingStateNotifier = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
