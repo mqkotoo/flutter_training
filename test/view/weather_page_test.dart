@@ -105,7 +105,7 @@ void main() {
       expect(find.text('7 ℃'), findsOneWidget);
     });
 
-    //sunny
+    // sunny
     testWidgets(
         'when reload button is pressed, '
         'sunny weather and correct temperature should be displayed.',
