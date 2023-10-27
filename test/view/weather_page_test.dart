@@ -37,11 +37,11 @@ void main() {
 
     // 気温のテキストの色を取得
     final minTemp =
-    tester.widget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.minTempKey)) as Text;
     final minTempColor = minTemp.style!.color;
 
     final maxTemp =
-    tester.widget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
+        tester.widget(find.byKey(WeatherForecastPanel.maxTempKey)) as Text;
     final maxTempColor = maxTemp.style!.color;
 
     expect(find.byType(Placeholder), findsOneWidget);
@@ -61,8 +61,10 @@ void main() {
     // cloudy
     testWidgets(
         'when reload button is pressed, '
-            'cloudy weather and correct temperature should be displayed.',
-            (tester) async {
+        'cloudy weather and correct temperature should be displayed.',
+        (tester) async {
+      // 現状sealedクラスで定義された方をwhenで返すことができないので、provideDummyを使って型とその初期値を与える
+      // https://pub.dev/documentation/mockito/latest/mockito/provideDummy.html
       provideDummy<Result<WeatherForecast, String>>(
         const Failure<WeatherForecast, String>('初期値として仮のエラーを返します。'),
       );
@@ -106,8 +108,8 @@ void main() {
     //sunny
     testWidgets(
         'when reload button is pressed, '
-            'sunny weather and correct temperature should be displayed.',
-            (tester) async {
+        'sunny weather and correct temperature should be displayed.',
+        (tester) async {
       provideDummy<Result<WeatherForecast, String>>(
         const Failure<WeatherForecast, String>('初期値として仮のエラーを返します。'),
       );
@@ -154,8 +156,8 @@ void main() {
     // rainy
     testWidgets(
         'when reload button is pressed, '
-            'rainy weather and correct temperature should be displayed.',
-            (tester) async {
+        'rainy weather and correct temperature should be displayed.',
+        (tester) async {
       provideDummy<Result<WeatherForecast, String>>(
         const Failure<WeatherForecast, String>('初期値として仮のエラーを返します。'),
       );
@@ -204,8 +206,8 @@ void main() {
     // invalidParameter
     testWidgets(
         'when fetchWeather() returns failure with invalidParameter error, '
-            'error dialog and correct message should be visible. '
-            'Then the dialog is closed by pressing the ok button.', (tester) async {
+        'error dialog and correct message should be visible. '
+        'Then the dialog is closed by pressing the ok button.', (tester) async {
       final fetchCompleter = Completer<Result<WeatherForecast, String>>();
 
       when(mockWeatherService.fetchWeather(any))
@@ -270,7 +272,7 @@ void main() {
     // unknown
     testWidgets(
         'when fetchWeather() returns failure with unknown error, '
-            'error dialog and correct message should be visible. ', (tester) async {
+        'error dialog and correct message should be visible. ', (tester) async {
       final fetchCompleter = Completer<Result<WeatherForecast, String>>();
 
       when(mockWeatherService.fetchWeather(any))
@@ -372,8 +374,8 @@ void main() {
 
       expect(
         find.widgetWithText(AlertDialog, ErrorMessage.receiveInvalidData),
-            findsNothing,
-          );
-        });
+        findsNothing,
+      );
+    });
   });
 }
