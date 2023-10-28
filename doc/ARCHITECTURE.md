@@ -41,10 +41,15 @@
 ## State
 
 * `Service`からResultを取得し、取得した天気のデータを保持する
+* ローディングの状態を通知する
 
 ### WeatherStateNotifier
 
 * 天気の取得が成功したらそのデータを格納し、失敗した場合は、`onError`関数を引数で受け取る。
+
+### LoadingStateNotifier
+
+* ローディングの状態を管理、`WeatherPage`に通知する
 
 ## View
 
@@ -55,6 +60,7 @@
 * アプリのメイン画面
 * `Reload`ボタンを押して、`weatherStateNotifierProvider`をreadして、天気の取得処理を行う。
 * `weatherStateNotifierProvider`で天気取得に失敗した場合は、エラーメッセージを表示する。
+* `LoadingStateNotifier`のローディング状態をウォッチしてローディングを表示する。
 
 ### WeatherForecastPanel
 
