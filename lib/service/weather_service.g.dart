@@ -24,7 +24,6 @@ final yumemiWeatherClientProvider = AutoDisposeProvider<YumemiWeather>.internal(
 );
 
 typedef YumemiWeatherClientRef = AutoDisposeProviderRef<YumemiWeather>;
-
 String _$weatherServiceHash() => r'36602ea8afd766fe0d1f565dda41a18117d1db1b';
 
 /// See also [weatherService].

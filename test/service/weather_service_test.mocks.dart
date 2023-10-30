@@ -30,7 +30,6 @@ class MockYumemiWeather extends _i1.Mock implements _i2.YumemiWeather {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   String fetchThrowsWeather(String? area) => (super.noSuchMethod(
         Invocation.method(
@@ -40,7 +39,6 @@ class MockYumemiWeather extends _i1.Mock implements _i2.YumemiWeather {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   String fetchWeather(String? jsonString) => (super.noSuchMethod(
         Invocation.method(
@@ -50,7 +48,6 @@ class MockYumemiWeather extends _i1.Mock implements _i2.YumemiWeather {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   String syncFetchWeather(String? jsonString) => (super.noSuchMethod(
         Invocation.method(

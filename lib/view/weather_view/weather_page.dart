@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/model/weather_request.dart';
+import 'package:flutter_training/state/loading_state_notifier.dart';
 import 'package:flutter_training/state/weather_state_notifier.dart';
 import 'package:flutter_training/view/weather_view/component/weather_forecast_panel.dart';
 
@@ -25,50 +26,64 @@ class WeatherPage extends ConsumerWidget {
           );
     }
 
-    return Scaffold(
-      body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.5,
-          child: Column(
-            children: [
-              const Spacer(),
-              const WeatherForecastPanel(),
-              Flexible(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 80),
-                    Row(
+    final isLoading = ref.watch(loadingStateNotifierProvider);
+
+    return Stack(
+      children: [
+        Scaffold(
+          body: Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.5,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  const WeatherForecastPanel(),
+                  Flexible(
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            key: closeButtonKey,
-                            child: const Text('Close'),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {
-                              onReloaded(
-                                WeatherRequest(
-                                  area: 'Nagoya',
-                                  date: DateTime.now(),
-                                ),
-                              );
-                            },
-                            key: reloadButton,
-                            child: const Text('Reload'),
-                          ),
+                        const SizedBox(height: 80),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                key: closeButtonKey,
+                                child: const Text('Close'),
+                              ),
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () {
+                                  onReloaded(
+                                    WeatherRequest(
+                                      area: 'Nagoya',
+                                      date: DateTime.now(),
+                                    ),
+                                  );
+                                },
+                                key: reloadButton,
+                                child: const Text('Reload'),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        // ローディングを表示
+        if (isLoading)
+          const ColoredBox(
+            color: Colors.black54,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
     );
   }
 }

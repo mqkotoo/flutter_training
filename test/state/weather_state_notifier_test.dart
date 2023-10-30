@@ -34,18 +34,22 @@ void main() {
     container.dispose();
   });
 
-  test('success case: getWeather()', () {
-    when(mockClient.fetchWeather(any)).thenReturn(validJsonData);
+  test('success case: getWeather()', () async {
+    when(mockClient.syncFetchWeather(any)).thenReturn(validJsonData);
+
+    // 以下でgetWeather()してからweatherStateを読み取ってもkeepAliveじゃないので破棄される
+    // よってcontainer.listenを使ってwatchのように天気を監視する
+    // ref: https://riverpod.dev/ja/docs/essentials/testing#:~:text=notified%20of%20changes.-,%E6%B3%A8%E6%84%8F,-Be%20careful%20when
+    final weatherStateWatcher =
+        container.listen(weatherStateNotifierProvider, (_, __) {});
 
     //　天気の取得処理を実行して、結果をstateに流す
-    container
+    await container
         .read(weatherStateNotifierProvider.notifier)
         .getWeather(request: request, onError: (error) {});
 
-    final weatherState = container.read(weatherStateNotifierProvider);
-
     expect(
-      weatherState,
+      weatherStateWatcher.read(),
       WeatherForecast(
         weatherCondition: WeatherCondition.cloudy,
         maxTemperature: 25,
@@ -56,90 +60,96 @@ void main() {
   });
 
   group('failure case: getWeather()', () {
-    test('an unknown error is thrown', () {
-      when(mockClient.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+    test('an unknown error is thrown', () async {
+      when(mockClient.syncFetchWeather(any))
+          .thenThrow(YumemiWeatherError.unknown);
+
+      final weatherStateWatcher =
+          container.listen(weatherStateNotifierProvider, (_, __) {});
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
 
       //　天気の取得処理を実行して、結果をstateに流す
-      container.read(weatherStateNotifierProvider.notifier).getWeather(
+      await container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
               errorMessage = e;
             },
           );
 
-      final weatherState = container.read(weatherStateNotifierProvider);
-
-      //取得はできてない
-      expect(weatherState, null);
+      // 失敗なので天気情報は取得できていないはず
+      expect(weatherStateWatcher.read(), null);
       expect(errorMessage, ErrorMessage.unknown);
     });
 
-    test('invalidParameter error is thrown', () {
-      when(mockClient.fetchWeather(any))
+    test('invalidParameter error is thrown', () async {
+      when(mockClient.syncFetchWeather(any))
           .thenThrow(YumemiWeatherError.invalidParameter);
+
+      final weatherStateWatcher =
+          container.listen(weatherStateNotifierProvider, (_, __) {});
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
 
       //　天気の取得処理を実行して、結果をstateに流す
-      container.read(weatherStateNotifierProvider.notifier).getWeather(
+      await container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
               errorMessage = e;
             },
           );
 
-      final weatherState = container.read(weatherStateNotifierProvider);
-
-      //取得はできてない
-      expect(weatherState, null);
+      // 失敗なので天気情報は取得できていないはず
+      expect(weatherStateWatcher.read(), null);
       expect(errorMessage, ErrorMessage.invalidParameter);
     });
 
-    test('fromJson error case: CheckedFromJsonException should be thrown.', () {
-      when(mockClient.fetchWeather(any))
+    test('fromJson error case: CheckedFromJsonException should be thrown.',
+        () async {
+      when(mockClient.syncFetchWeather(any))
           .thenReturn(invalidJsonDataForCheckedFromJsonException);
+
+      final weatherStateWatcher =
+          container.listen(weatherStateNotifierProvider, (_, __) {});
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
 
       //　天気の取得処理を実行して、結果をstateに流す
-      container.read(weatherStateNotifierProvider.notifier).getWeather(
+      await container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
               errorMessage = e;
             },
           );
 
-      final weatherState = container.read(weatherStateNotifierProvider);
-
-      //取得はできてない
-      expect(weatherState, null);
+      // 失敗なので天気情報は取得できていないはず
+      expect(weatherStateWatcher.read(), null);
       expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
 
-    test('received data is not in JSON format', () {
-      when(mockClient.fetchWeather(any))
+    test('received data is not in JSON format', () async {
+      when(mockClient.syncFetchWeather(any))
           .thenReturn(invalidJsonDataForFormatException);
+
+      final weatherStateWatcher =
+          container.listen(weatherStateNotifierProvider, (_, __) {});
 
       //　表示されるエラーメッセージを格納
       String? errorMessage;
 
       //　天気の取得処理を実行して、結果をstateに流す
-      container.read(weatherStateNotifierProvider.notifier).getWeather(
+      await container.read(weatherStateNotifierProvider.notifier).getWeather(
             request: request,
             onError: (e) {
               errorMessage = e;
             },
           );
 
-      final weatherState = container.read(weatherStateNotifierProvider);
-
-      //取得はできてない
-      expect(weatherState, null);
+      // 失敗なので天気情報は取得できていないはず
+      expect(weatherStateWatcher.read(), null);
       expect(errorMessage, ErrorMessage.receiveInvalidData);
     });
   });
